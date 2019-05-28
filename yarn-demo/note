@@ -1,0 +1,25 @@
+5.3 Yarn工作机制
+Yarn是一个资源调度平台，负责为运算程序提供服务器运算资源，相当于一个分布式的操作系统平台，而MapReduce等运算程序则相当于运行于操作系统之上的应用程序
+
+YARN主要由ResourceManager、NodeManager、ApplicationMaster和Container等组件构成。
+
+2）工作机制详解
+	（0）Mr程序提交到客户端所在的节点。
+	（1）Yarnrunner向Resourcemanager(rm)申请一个Application。
+	（2）rm将该应用程序的资源路径返回给yarnrunner。
+	（3）该程序将运行所需资源提交到HDFS上。
+	（4）程序资源提交完毕后，申请运行mrAppMaster。
+	（5）RM将用户的请求初始化成一个task。
+	（6）其中一个NodeManager领取到task任务。
+	（7）该NodeManager创建容器Container，并产生MRAppmaster。
+	（8）Container从HDFS上拷贝资源到本地。
+	（9）MRAppmaster向RM 申请运行maptask资源。
+	（10）RM将运行maptask任务分配给另外两个NodeManager，另两个NodeManager分别领取任务并创建容器。
+	（11）MR向两个接收到任务的NodeManager发送程序启动脚本，这两个NodeManager分别启动maptask，maptask对数据分区排序。
+    （12）MrAppMaster等待所有maptask运行完毕后，向RM申请容器，运行reduce task。
+	（13）reduce task向maptask获取相应分区的数据。
+	（14）程序运行完毕后，MR会向RM申请注销自己。
+
+5.4 作业提交全过程
+5.5 资源调度器
+目前，Hadoop作业调度器主要有三种：FIFO、Capacity Scheduler和Fair Scheduler。Hadoop2.7.2默认的资源调度器是Capacity Scheduler。

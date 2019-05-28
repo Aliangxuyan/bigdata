@@ -1,0 +1,11 @@
+7.3  自定义UDF函数
+1．创建一个Maven工程Hive
+2．导入依赖
+3．创建一个类
+4．打成jar包上传到服务器/opt/bigdata/jars/udf.jar
+5．将jar包添加到hive的classpath
+hive (default)> add jar /opt/bigdata/datas/udf.jar;
+6．创建临时函数与开发好的java class关联
+hive (default)> create temporary function mylower as "com.atguigu.function.udf.Lower";
+7．即可在hql中使用自定义的函数strip 
+hive (default)> select ename, mylower(ename) lowername from emp;

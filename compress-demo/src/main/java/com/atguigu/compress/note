@@ -1,0 +1,15 @@
+4.6.1 数据流的压缩和解压缩
+(TestCompress.java)
+CompressionCodec有两个方法可以用于轻松地压缩或解压缩数据。要想对正在被写入一个输出流的数据进行压缩，
+我们可以使用createOutputStream(OutputStreamout)方法创建一个CompressionOutputStream，将其以压缩格式写入底层的流。
+相反，要想对从输入流读取而来的数据进行解压缩，则调用createInputStream(InputStreamin)函数，从而获得一个CompressionInputStream，
+从而从底层的流读取未压缩的数据。
+
+
+4.6.2 Map输出端采用压缩
+即使你的MapReduce的输入输出文件都是未压缩的文件，你仍然可以对map任务的中间结果输出做压缩，
+因为它要写在硬盘并且通过网络传输到reduce节点，对其压缩可以提高很多性能，这些工作只要设置两个属性即可，
+我们来看下代码怎么设置：
+
+WordCountDriver
+

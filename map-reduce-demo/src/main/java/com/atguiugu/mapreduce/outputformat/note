@@ -1,0 +1,10 @@
+为了实现控制最终文件的输出路径，可以自定义OutputFormat。
+要在一个mapreduce程序中根据数据的不同输出两类结果到不同目录，这类灵活的输出需求可以通过自定义outputformat来实现。
+1）自定义OutputFormat步骤
+（1）自定义一个类继承FileOutputFormat。
+（2）改写recordwriter，具体改写输出数据的方法write()。
+
+1）需求
+	过滤输入的log日志中是否包含atguigu
+	（1）包含atguigu的网站输出到e:/atguigu.log
+	（2）不包含atguigu的网站输出到e:/other.log

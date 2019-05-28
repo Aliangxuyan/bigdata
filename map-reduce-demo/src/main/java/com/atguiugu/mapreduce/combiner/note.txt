@@ -1,0 +1,25 @@
+1）combiner是MR程序中Mapper和Reducer之外的一种组件。
+2）combiner组件的父类就是Reducer。
+3）combiner和reducer的区别在于运行的位置：
+Combiner是在每一个maptask所在的节点运行;
+Reducer是接收全局所有Mapper的输出结果；
+4）combiner的意义就是对每一个maptask的输出进行局部汇总，以减小网络传输量。
+5）combiner能够应用的前提是不能影响最终的业务逻辑，而且，combiner的输出kv应该跟reducer的输入kv类型要对应起来。
+Mapper
+3 5 7 ->(3+5+7)/3=5
+2 6 ->(2+6)/2=4
+Reducer
+(3+5+7+2+6)/5=23/5    不等于    (5+4)/2=9/2
+
+
+
+需求：统计过程中对每一个maptask的输出进行局部汇总，以减小网络传输量即采用Combiner功能。
+方案一
+1）增加一个WordcountCombiner类继承Reducer
+
+2）在WordcountDriver驱动类中指定combiner
+
+方案二
+1）将WordcountReducer作为combiner在WordcountDriver驱动类中指定
+// 指定需要使用combiner，以及用哪个类作为combiner的逻辑
+job.setCombinerClass(WordcountReducer.class);

@@ -1,0 +1,7 @@
+根据案例2.4产生的结果再次对总流量进行排序。
+
+
+分析
+	（1）把程序分两步走，第一步正常统计总流量，第二步再把结果进行排序
+	（2）context.write(总流量，手机号)
+	（3）FlowBean实现WritableComparable接口重写compareTo方法

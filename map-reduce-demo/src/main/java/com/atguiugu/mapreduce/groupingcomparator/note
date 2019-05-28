@@ -1,0 +1,17 @@
+1）需求
+有如下订单数据
+
+现在需要求出每一个订单中最贵的商品。
+2）输入数据
+
+输出数据预期：
+
+3）分析
+（1）利用“订单id和成交金额”作为key，可以将map阶段读取到的所有订单数据按照id分区，按照金额排序，发送到reduce。
+（2）在reduce端利用groupingcomparator将订单id相同的kv聚合成组，然后取第一个即是最大值。
+
+4）代码实现
+（1）定义订单信息OrderBean
+（2）编写OrderSortMapper
+（3）编写OrderSortPartitioner
+（4）编写OrderSortGroupingComparator

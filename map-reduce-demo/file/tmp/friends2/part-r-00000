@@ -1,0 +1,53 @@
+A-A	B O C O D D D B E C F F F C O B 
+A-B	B O O O B F F F F F F E E E E B C C C 
+A-C	E F K G F B H B B E F 
+A-D	F C H C G K E E F C F 
+A-E	D D B D B F F H F B G 
+A-F	C G C D D D C 
+A-H	O O O 
+A-I	C O C O O C 
+A-J	O O O 
+A-K	B B B 
+A-L	E D D D E 
+A-M	F F E E F 
+A-O	H I F F F 
+B-B	E F 
+B-C	B E F E A F 
+B-D	F E C A E F 
+B-E	B F F A 
+B-F	A C 
+B-H	O 
+B-I	C O 
+B-J	O 
+B-K	B 
+B-L	E E 
+B-M	F F E E 
+B-O	F A F J 
+C-D	E F K A H G 
+C-E	B F H A G 
+C-F	A G 
+C-K	B 
+C-L	E 
+C-M	E F 
+C-O	H F A 
+D-E	L F G A H 
+D-F	L A G C 
+D-I	C 
+D-L	E 
+D-M	E F 
+D-O	H F A 
+E-F	A D M L G 
+E-G	M 
+E-K	B 
+E-L	D 
+E-M	F 
+E-O	A F H 
+F-G	M 
+F-I	C 
+F-L	D 
+F-O	A 
+H-I	O 
+H-J	O 
+I-J	O 
+L-M	E 
+M-O	F 
