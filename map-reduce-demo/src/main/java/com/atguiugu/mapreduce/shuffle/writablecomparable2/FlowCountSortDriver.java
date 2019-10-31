@@ -31,8 +31,8 @@ public class FlowCountSortDriver {
         job.setReducerClass(FlowCountSortReducer.class);
 
         // 3 指定mapper输出数据的kv类型
-        job.setMapOutputKeyClass(FlowBean.class);
-        job.setMapOutputValueClass(Text.class);
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(FlowBean.class);
 
         // 4 指定最终输出的数据的kv类型
         job.setOutputKeyClass(Text.class);

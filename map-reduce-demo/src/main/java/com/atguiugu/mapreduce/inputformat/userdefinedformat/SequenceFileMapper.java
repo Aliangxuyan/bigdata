@@ -1,7 +1,6 @@
 package com.atguiugu.mapreduce.inputformat.userdefinedformat;
 
 import org.apache.hadoop.io.BytesWritable;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.lib.input.FileSplit;
@@ -11,12 +10,12 @@ import java.io.IOException;
 /**
  * Created by lxy on 2018/8/1.
  */
-public class SequenceFileMapper extends Mapper<NullWritable, BytesWritable, Text, BytesWritable> {
+public class SequenceFileMapper extends Mapper<Text, BytesWritable, Text, BytesWritable> {
 
     Text k = new Text();
 
     @Override
-    protected void setup(Mapper<NullWritable, BytesWritable, Text, BytesWritable>.Context context)
+    protected void setup(Mapper<Text, BytesWritable, Text, BytesWritable>.Context context)
             throws IOException, InterruptedException {
         // 1 获取文件切片信息
         FileSplit inputSplit = (FileSplit) context.getInputSplit();
@@ -27,7 +26,7 @@ public class SequenceFileMapper extends Mapper<NullWritable, BytesWritable, Text
     }
 
     @Override
-    protected void map(NullWritable key, BytesWritable value,
+    protected void map(Text key, BytesWritable value,
                        Context context)
             throws IOException, InterruptedException {
 

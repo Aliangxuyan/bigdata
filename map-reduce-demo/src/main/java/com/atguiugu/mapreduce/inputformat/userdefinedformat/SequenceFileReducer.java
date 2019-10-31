@@ -14,7 +14,10 @@ public class SequenceFileReducer extends Reducer<Text, BytesWritable, Text, Byte
     protected void reduce(Text key, Iterable<BytesWritable> values, Context context)
             throws IOException, InterruptedException {
 
-        context.write(key, values.iterator().next());
+        // 循环写出
+        for (BytesWritable value : values) {
+            context.write(key, value);
+        }
     }
 
 }

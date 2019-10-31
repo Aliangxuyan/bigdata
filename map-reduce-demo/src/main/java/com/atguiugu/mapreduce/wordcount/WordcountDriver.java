@@ -35,10 +35,25 @@ public class WordcountDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
+        // 设置两个分区测试partition
+        job.setNumReduceTasks(2);
+
         // 6 设置输入和输出路径
         FileInputFormat.setInputPaths(job,new Path("map-reduce-demo/file/tmp/hello.txt"));
         FileOutputFormat.setOutputPath(job,new Path("map-reduce-demo/file/tmp/hello_out.txt"));
 
+
+// 测试处理多文件分片数,示例中默认是number of splits:3  合并之后 number of splits:1
+//*************************************************** CombineTextInputFormat  start********************************************************************
+
+//        //如果不设置 InputFormat 默认是 TextInputFormat
+//        job.setInputFormatClass(CombineTextInputFormat.class);
+//        CombineTextInputFormat.setMaxInputSplitSize(job,1024); // 1K
+//
+//        FileInputFormat.setInputPaths(job,new Path("map-reduce-demo/file/tmp/combine_input"));
+//        FileOutputFormat.setOutputPath(job,new Path("map-reduce-demo/file/tmp/combine_output"));
+
+//*************************************************** CombineTextInputFormat end ********************************************************************
         // 7 提交
         boolean result = job.waitForCompletion(true);
 

@@ -31,7 +31,7 @@ public class HdfsClient {
         FileSystem fs = FileSystem.get(new URI("hdfs://hadoop101:9000"), configuration, "lxy");
 
         // 2 创建目录
-        fs.mkdirs(new Path("/0303/daxian/banzhang"));
+        fs.mkdirs(new Path("/1022/daxian/banzhang"));
 
         // 3 关闭资源
         fs.close();
@@ -51,7 +51,7 @@ public class HdfsClient {
         FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), configuration, "lxy");
 
         // 2 上传文件
-        fs.copyFromLocalFile(new Path("file/hello.txt"), new Path("/hello.txt"));
+        fs.copyFromLocalFile(new Path("file/hello.txt"), new Path("/1022/hello.txt"));
 
         // 3 关闭资源
         fs.close();
@@ -76,7 +76,7 @@ public class HdfsClient {
         // Path src 指要下载的文件路径
         // Path dst 指将文件下载到的路径
         // boolean useRawLocalFileSystem 是否开启文件校验
-        fs.copyToLocalFile(false, new Path("/hello.txt"), new Path("file/hello1.txt"), true);
+        fs.copyToLocalFile(false, new Path("/1022/hello.txt"), new Path("file/hello1.txt"), true);
 
         // 3 关闭资源
         fs.close();
@@ -182,7 +182,6 @@ public class HdfsClient {
         FileStatus[] listStatus = fs.listStatus(new Path("/"));
 
         for (FileStatus fileStatus : listStatus) {
-
             // 如果是文件
             if (fileStatus.isFile()) {
                 System.out.println("f:"+fileStatus.getPath().getName());

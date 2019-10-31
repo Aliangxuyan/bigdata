@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class NLineMapper extends Mapper<LongWritable,Text,Text,LongWritable>{
     private Text k = new Text();
-    private LongWritable v = new LongWritable();
+    private LongWritable v = new LongWritable(1);
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {

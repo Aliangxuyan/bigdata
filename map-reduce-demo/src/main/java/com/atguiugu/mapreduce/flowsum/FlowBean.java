@@ -1,5 +1,6 @@
 package com.atguiugu.mapreduce.flowsum;
 
+import lombok.Data;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.io.WritableComparable;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
  * Created by lxy on 2018/7/31.
  * 1 实现writable接口
  */
+@Data
 public class FlowBean implements Writable,WritableComparable<FlowBean> {
 
     private long upFlow;
@@ -52,27 +54,6 @@ public class FlowBean implements Writable,WritableComparable<FlowBean> {
     public String toString() {
         return upFlow + "\t" + downFlow + "\t" + sumFlow;
     }
-
-    public long getUpFlow() {
-        return upFlow;
-    }
-
-    public void setUpFlow(long upFlow) {
-        this.upFlow = upFlow;
-    }
-
-    public void setDownFlow(long downFlow) {
-        this.downFlow = downFlow;
-    }
-
-    public long getSumFlow() {
-        return sumFlow;
-    }
-
-    public long getDownFlow() {
-        return downFlow;
-    }
-
 
     @Override
     public int compareTo(FlowBean o) {

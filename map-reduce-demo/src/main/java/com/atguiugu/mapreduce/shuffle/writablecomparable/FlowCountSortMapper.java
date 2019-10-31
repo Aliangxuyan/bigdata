@@ -9,9 +9,9 @@ import java.io.IOException;
 /**
  * Created by lxy on 2018/8/7.
  */
-public class FlowCountSortMapper extends Mapper<LongWritable, Text, FlowBean, Text> {
-    FlowBean bean = new FlowBean();
-    Text v= new Text();
+public class FlowCountSortMapper extends Mapper<LongWritable, Text, Text, FlowBean> {
+    FlowBean v = new FlowBean();
+    Text k= new Text();
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -27,11 +27,11 @@ public class FlowCountSortMapper extends Mapper<LongWritable, Text, FlowBean, Te
         long upFlow = Long.parseLong(fields[1]);
         long downFlow = Long.parseLong(fields[2]);
 
-        bean.set(upFlow, downFlow);
-        v.set(phoneNbr);
+        v.set(upFlow, downFlow);
+        k.set(phoneNbr);
 
         // 4 输出
-        context.write(bean, v);
+        context.write(k, v);
 
     }
 }

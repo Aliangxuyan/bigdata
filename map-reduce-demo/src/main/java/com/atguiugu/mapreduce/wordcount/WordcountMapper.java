@@ -10,6 +10,12 @@ import java.io.IOException;
 /**
  * mapper类
  * Created by lxy on 2018/7/31.
+ *
+ * KEYIN: 输入数据的Key
+ * VALUEIN: 输入数据的value
+ * KEYOUT:  输出的数据的key  类型 atguigu:1  ss:2
+ * VALUEOUT: 输出的数据的value 类型
+ *
  */
 public class WordcountMapper extends Mapper<LongWritable,Text,Text,IntWritable> {
     Text k = new Text();

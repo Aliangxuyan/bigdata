@@ -6,73 +6,81 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IOUtils;
-import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.mapred.FileSplit;
+import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.InputSplit;
 import org.apache.hadoop.mapreduce.RecordReader;
 import org.apache.hadoop.mapreduce.TaskAttemptContext;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 
 import java.io.IOException;
 
 /**
  * Created by lxy on 2018/8/1.
  */
-public class WholeRecordReader extends RecordReader<NullWritable, BytesWritable> {
+public class WholeRecordReader extends RecordReader<Text, BytesWritable> {
     private Configuration configuration;
     private FileSplit split;
 
-    private boolean processed = false;
-    private BytesWritable value = new BytesWritable();
+    Text k = new Text();
+    BytesWritable v = new BytesWritable();
+
+    private boolean isProcessed = true;
 
     @Override
     public void initialize(InputSplit split, TaskAttemptContext context) throws IOException, InterruptedException {
-
-        this.split = (FileSplit)split;
+        // 初始化
+        this.split = (FileSplit) split;
         configuration = context.getConfiguration();
     }
 
     @Override
     public boolean nextKeyValue() throws IOException, InterruptedException {
-
-        if (!processed) {
-            // 1 定义缓存区
-            byte[] contents = new byte[(int) split.getLength()];
+        // 核心业务逻辑处理
+        if (isProcessed) {
+            // 定义缓存区
+            byte[] buf = new byte[(int) split.getLength()];
 
             FileSystem fs = null;
             FSDataInputStream fis = null;
 
             try {
-                // 2 获取文件系统
+                // 1 获取文件系统，fs 对象
                 Path path = split.getPath();
                 fs = path.getFileSystem(configuration);
 
-                // 3 读取数据
+                // 2 读取数据
                 fis = fs.open(path);
 
-                // 4 读取文件内容
-                IOUtils.readFully(fis, contents, 0, contents.length);
+                // 3 拷贝
+                IOUtils.readFully(fis, buf, 0, buf.length);
 
-                // 5 输出文件内容
-                value.set(contents, 0, contents.length);
+                // 4 封装V
+                v.set(buf, 0, buf.length);
+
+                // 5 封装K
+                k.set(path.toString());
             } catch (Exception e) {
 
             } finally {
+                // 6 关闭资源
                 IOUtils.closeStream(fis);
             }
 
-            processed = true;
+            isProcessed = false;
+            return true;
         }
-        return processed;
+        return false;
     }
 
     @Override
-    public NullWritable getCurrentKey() throws IOException, InterruptedException {
-        return null;
+    public Text getCurrentKey() throws IOException, InterruptedException {
+        return k;
     }
 
     @Override
     public BytesWritable getCurrentValue() throws IOException, InterruptedException {
-        return null;
+
+        return v;
     }
 
     @Override

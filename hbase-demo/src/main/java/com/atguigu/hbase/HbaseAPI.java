@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class HbaseAPI {
     public static Configuration conf;
-    private static Connection con;
+    private static Connection connection;
     private static Admin admin;
 
     static {
@@ -25,13 +25,13 @@ public class HbaseAPI {
 
         try {
             // 获取连接
-            Connection connection = ConnectionFactory.createConnection(conf);
+            connection = ConnectionFactory.createConnection(conf);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            admin = con.getAdmin();
+            admin = connection.getAdmin();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,8 +58,8 @@ public class HbaseAPI {
         try {
             boolean exists = admin.tableExists(TableName.valueOf(tableName));
             return exists;
-        }finally {
-            con.close();
+        } finally {
+            connection.close();
             admin.close();
         }
     }
@@ -79,7 +79,6 @@ public class HbaseAPI {
         //判断表是否存在
         if (isTableExist(tableName)) {
             System.out.println("表" + tableName + "已存在");
-            //System.exit(0);
         } else {
             //创建表属性对象,表名需要转字节
             HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf(tableName));
@@ -113,6 +112,24 @@ public class HbaseAPI {
         }
     }
 
+
+    /**
+     * 删除一条数据
+     *
+     * @param tableName
+     * @param rowKey
+     * @param cf
+     * @param cn
+     */
+    public static void deleteData(String tableName, String rowKey, String cf, String cn) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Delete delete = new Delete(rowKey.getBytes());
+        delete.addColumn(cf.getBytes(),cn.getBytes());
+        table.delete(delete);
+        table.close();
+
+    }
+
     /**
      * 像表中插入数据
      *
@@ -126,11 +143,12 @@ public class HbaseAPI {
     public static void addRowData(String tableName, String rowKey, String columnFamily, String
             column, String value) throws IOException {
         //创建HTable对象
-        HTable hTable = new HTable(conf, tableName);
+//        HTable hTable = new HTable(conf, tableName);
+        Table hTable = connection.getTable(TableName.valueOf(tableName));
         //向表中插入数据
         Put put = new Put(Bytes.toBytes(rowKey));
         //向Put对象中组装数据
-        put.add(Bytes.toBytes(columnFamily), Bytes.toBytes(column), Bytes.toBytes(value));
+        put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(column), Bytes.toBytes(value));
         hTable.put(put);
         hTable.close();
         System.out.println("插入数据成功");
@@ -144,7 +162,8 @@ public class HbaseAPI {
      * @throws IOException
      */
     public static void deleteMultiRow(String tableName, String... rows) throws IOException {
-        HTable hTable = new HTable(conf, tableName);
+//        HTable hTable = new HTable(conf, tableName);
+        Table hTable = connection.getTable(TableName.valueOf(tableName));
         List<Delete> deleteList = new ArrayList<Delete>();
         for (String row : rows) {
             Delete delete = new Delete(Bytes.toBytes(row));
@@ -161,7 +180,8 @@ public class HbaseAPI {
      * @throws IOException
      */
     public static void getAllRows(String tableName) throws IOException {
-        HTable hTable = new HTable(conf, tableName);
+//        HTable hTable = new HTable(conf, tableName);
+        Table hTable = connection.getTable(TableName.valueOf(tableName));
         //得到用于扫描region的对象
         Scan scan = new Scan();
         //使用HTable得到resultcanner实现类的对象
@@ -187,7 +207,8 @@ public class HbaseAPI {
      * @throws IOException
      */
     public static void getRow(String tableName, String rowKey) throws IOException {
-        HTable table = new HTable(conf, tableName);
+//        HTable table = new HTable(conf, tableName);
+        Table table = connection.getTable(TableName.valueOf(tableName));
         Get get = new Get(Bytes.toBytes(rowKey));
         //get.setMaxVersions();显示所有版本
         //get.setTimeStamp();显示指定时间戳的版本
@@ -212,7 +233,8 @@ public class HbaseAPI {
      */
     public static void getRowQualifier(String tableName, String rowKey, String family, String
             qualifier) throws IOException {
-        HTable table = new HTable(conf, tableName);
+//        HTable table = new HTable(conf, tableName);
+        Table table = connection.getTable(TableName.valueOf(tableName));
         Get get = new Get(Bytes.toBytes(rowKey));
         get.addColumn(Bytes.toBytes(family), Bytes.toBytes(qualifier));
         Result result = table.get(get);

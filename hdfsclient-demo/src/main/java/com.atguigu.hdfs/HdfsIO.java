@@ -19,6 +19,8 @@ import java.net.URISyntaxException;
  * Created by lxy on 2018/7/30.
  */
 public class HdfsIO {
+
+
     /**
      * HDFS文件上传
      * @throws IOException
@@ -98,6 +100,7 @@ public class HdfsIO {
         // 5关闭资源
         IOUtils.closeStream(fis);
         IOUtils.closeStream(fos);
+        fs.close();
     }
 
     /**
@@ -115,7 +118,7 @@ public class HdfsIO {
         // 2 打开输入流
         FSDataInputStream fis = fs.open(new Path("/hadoop-2.7.2.tar.gz"));
 
-        // 3 定位输入数据位置
+        // 3 定位输入数据位置,指定读取的起点
         fis.seek(1024*1024*128);
 
         // 4 创建输出流
@@ -127,6 +130,7 @@ public class HdfsIO {
         // 6 关闭资源
         IOUtils.closeStream(fis);
         IOUtils.closeStream(fos);
+        fs.close();
     }
 
 }

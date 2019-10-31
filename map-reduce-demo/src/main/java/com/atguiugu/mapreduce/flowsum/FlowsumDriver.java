@@ -18,7 +18,7 @@ public class FlowsumDriver {
 
         // 1 获取配置信息，或者job对象实例
         Configuration configuration = new Configuration();
-        Job job = Job.getInstance();
+        Job job = Job.getInstance(configuration);
 
         // 6 指定本程序的jar包所在的本地路径
         job.setJarByClass(FlowsumDriver.class);
