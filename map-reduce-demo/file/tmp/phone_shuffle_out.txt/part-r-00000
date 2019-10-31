@@ -1,21 +1,21 @@
-13560436666	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13726238888	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13760778710	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13925057413	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-18320173382	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13502468823	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13922314466	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13602846565	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13480253104	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13560439658	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-15989002119	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-15013685858	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13660577991	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13719199419	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-15920133257	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13560439658	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-18211575961	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13926251106	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13926435656	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13826544101	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
-13726230503	com.atguiugu.mapreduce.shuffle.writablecomparable.FlowBean@2cb959fe
+13560436666	20000	30000	50000
+15989002119	20000	30000	50000
+15013685858	20000	30000	50000
+13660577991	20000	30000	50000
+13726230503	20000	30003	50003
+13719199419	20000	30003	50003
+15920133257	20000	30003	50003
+13560439658	20000	30003	50003
+18211575961	20000	30003	50003
+13926251106	20000	30003	50003
+13926435656	20000	30003	50003
+13826544101	20000	30003	50003
+18320173382	20004	30000	50004
+13502468823	20004	30000	50004
+13922314466	20004	30000	50004
+13602846565	20004	30000	50004
+13480253104	20004	30000	50004
+13560439658	20004	30000	50004
+13726238888	20004	30000	50004
+13760778710	20004	30000	50004
+13925057413	20004	30000	50004
