@@ -12,7 +12,7 @@ object HelloScala {
   // def 关键字用于声明函数
   // public static void main(String[] args)
   def main(args: Array[String]): Unit = {
-    //    System.out.println("Hello Scala");
+//        System.out.println("Hello Scala");
     print("Hello Scala")
   }
 }

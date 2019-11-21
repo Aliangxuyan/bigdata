@@ -20,12 +20,12 @@ import org.apache.hadoop.mapreduce.Partitioner;
         *}
  *
  */
-public class ProvincePartitioner extends Partitioner<Text, FlowBean> {
+public class ProvincePartitioner extends Partitioner<FlowBean, Text> {
 
     @Override
-    public int getPartition(Text key, FlowBean flowBean, int numPartitions) {
+    public int getPartition(FlowBean key, Text value, int numPartitions) {
 
-        // key 是手机号，value  是流量信息
+        // key 是手机号，value  是流量信息®
 
         // 1 获取手机号码前三位
         String preNum = key.toString().substring(0, 3);

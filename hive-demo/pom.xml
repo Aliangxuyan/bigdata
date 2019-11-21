@@ -24,6 +24,14 @@
             </plugin>
         </plugins>
     </build>
+    <!-- 自定义函数用-->
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

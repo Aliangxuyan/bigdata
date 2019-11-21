@@ -12,6 +12,8 @@ import java.io.IOException;
 /**
  * Created by lxy on 2018/8/8.
  *
+ * 按流量全排序
+ *
  *  *
  */
 public class FlowCountSortDriver {

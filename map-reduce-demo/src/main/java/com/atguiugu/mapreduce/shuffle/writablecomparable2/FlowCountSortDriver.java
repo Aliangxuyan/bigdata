@@ -14,6 +14,8 @@ import java.io.IOException;
 
 /**
  * Created by lxy on 2018/8/8.
+ * 按手机号然后按照总流量排序（局部排序）
+ *
  */
 public class FlowCountSortDriver {
 
@@ -31,8 +33,8 @@ public class FlowCountSortDriver {
         job.setReducerClass(FlowCountSortReducer.class);
 
         // 3 指定mapper输出数据的kv类型
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(FlowBean.class);
+        job.setMapOutputKeyClass(FlowBean.class);
+        job.setMapOutputValueClass(Text.class);
 
         // 4 指定最终输出的数据的kv类型
         job.setOutputKeyClass(Text.class);

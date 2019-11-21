@@ -1,0 +1,43 @@
+
+编译过程碰到问题：
+1、因为用非root  权限 lxy:wheel，所以在 初次编译失败只有，最终打包target 目录是root  权限，无权限删除
+2、在准备编译环境 cmake 时因为，本人在在当时使用docker
+    vim ~/.bash_profile 目录中设置了 docker  远程仓库阿里云代理，导致下载cmmake 相关包有问题，注释之后无问题，
+    但是在使用docker  时还需要打开
+    # docker set aliyun mirror
+    # export https_proxy="https://3qz7uhcw.mirror.aliyuncs.com"
+3、尽量按照文档进行操作，mac  本稍有不同另做处理
+
+
+1．准备编译环境
+[root@hadoop101 software]# yum install svn
+[root@hadoop101 software]# yum install autoconf automake libtool cmake
+[root@hadoop101 software]# yum install ncurses-devel (之前安装过没有操作)
+[root@hadoop101 software]# yum install openssl-devel(之前安装过没有操作)
+[root@hadoop101 software]# yum install gcc*(之前安装过没有操作)
+
+mac  环境yum  换成brew
+
+2．编译安装snappy
+[root@hadoop101 software]# tar -zxvf protobuf-2.5.0.tar.gz -C /opt/module/
+[root@hadoop101 module]# cd protobuf-2.5.0/
+[root@hadoop101 protobuf-2.5.0]# ./configure 
+[root@hadoop101 protobuf-2.5.0]#  make 
+[root@hadoop101 protobuf-2.5.0]#  make install
+# 查看protobuf版本以测试是否安装成功 [root@hadoop101 protobuf-2.5.0]# protoc --version
+
+3．编译安装protobuf
+[root@hadoop101 software]# tar -zxvf protobuf-2.5.0.tar.gz -C /opt/module/
+[root@hadoop101 module]# cd protobuf-2.5.0/
+[root@hadoop101 protobuf-2.5.0]# ./configure 
+[root@hadoop101 protobuf-2.5.0]#  make 
+[root@hadoop101 protobuf-2.5.0]#  make install
+# 查看protobuf版本以测试是否安装成功 [root@hadoop101 protobuf-2.5.0]# protoc --version
+
+
+4．编译hadoop native
+[root@hadoop101 software]# tar -zxvf hadoop-2.7.2-src.tar.gz
+[root@hadoop101 software]# cd hadoop-2.7.2-src/
+[root@hadoop101 software]# mvn clean package -DskipTests -Pdist,native -Dtar -Dsnappy.lib=/usr/local/lib -Dbundle.snappy
+
+执行成功后，/opt/software/hadoop-2.7.2-src/hadoop-dist/target/hadoop-2.7.2.tar.gz即为新生成的支持snappy压缩的二进制安装包。

@@ -20,6 +20,7 @@
         <module>scala-demo</module>
         <module>spark-demo</module>
         <module>kafka-demo</module>
+        <module>project-ct1</module>
     </modules>
 
     <dependencies>
@@ -54,6 +55,7 @@
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
         </dependency>
+
 
     </dependencies>
 
