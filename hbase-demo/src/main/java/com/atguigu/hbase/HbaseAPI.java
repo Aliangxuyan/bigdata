@@ -20,7 +20,7 @@ public class HbaseAPI {
     static {
         //使用HBaseConfiguration的单例方法实例化
         conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "192.168.1.4");
+        conf.set("hbase.zookeeper.quorum", "hadoop101,hadoop102,hadoop103");
         conf.set("hbase.zookeeper.property.clientPort", "2181");
 
         try {
@@ -55,12 +55,24 @@ public class HbaseAPI {
 //        HBaseAdmin admin = new HBaseAdmin(conf);
 //        return admin.tableExists(tableName);
         // *******************************
+        boolean exists = admin.tableExists(TableName.valueOf(tableName));
+        return exists;
+
+    }
+
+    /**
+     * 关闭资源
+     */
+    public static void close() {
         try {
-            boolean exists = admin.tableExists(TableName.valueOf(tableName));
-            return exists;
-        } finally {
-            connection.close();
-            admin.close();
+            if (admin != null) {
+                admin.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -76,21 +88,42 @@ public class HbaseAPI {
     public static void createTable(String tableName, String... columnFamily) throws
             MasterNotRunningException, ZooKeeperConnectionException, IOException {
 //        HBaseAdmin admin = new HBaseAdmin(conf);
+
+        // 判断列族信息
+        if (columnFamily.length <= 0) {
+            System.out.println("请设置列族信息");
+            return;
+        }
         //判断表是否存在
         if (isTableExist(tableName)) {
             System.out.println("表" + tableName + "已存在");
-        } else {
-            //创建表属性对象,表名需要转字节
-            HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf(tableName));
-            //创建多个列族
-            for (String cf : columnFamily) {
-                descriptor.addFamily(new HColumnDescriptor(cf));
-            }
-            //根据对表的配置，创建表
-            admin.createTable(descriptor);
-            System.out.println("表" + tableName + "创建成功！");
+            return;
         }
+
+        //创建表属性对象,表名需要转字节
+        HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf(tableName));
+        //创建多个列族
+        for (String cf : columnFamily) {
+            descriptor.addFamily(new HColumnDescriptor(cf));
+        }
+        //根据对表的配置，创建表
+        admin.createTable(descriptor);
+        System.out.println("表" + tableName + "创建成功！");
+
+
     }
+
+    /**
+     * 创建命名空间
+     *
+     * @param namespace
+     */
+    public static void createNamespace(String namespace) throws IOException {
+        NamespaceDescriptor.Builder namespaceDescriptor = NamespaceDescriptor.create(namespace);
+        admin.createNamespace(namespaceDescriptor.build());
+        System.out.println("创建命名空间成功！");
+    }
+
 
     /**
      * 删除表
@@ -102,10 +135,10 @@ public class HbaseAPI {
      */
     public static void dropTable(String tableName) throws MasterNotRunningException,
             ZooKeeperConnectionException, IOException {
-        HBaseAdmin admin = new HBaseAdmin(conf);
+//        HBaseAdmin admin = new HBaseAdmin(conf);
         if (isTableExist(tableName)) {
-            admin.disableTable(tableName);
-            admin.deleteTable(tableName);
+            admin.disableTable(TableName.valueOf(tableName));
+            admin.deleteTable(TableName.valueOf(tableName));
             System.out.println("表" + tableName + "删除成功！");
         } else {
             System.out.println("表" + tableName + "不存在！");
@@ -116,6 +149,8 @@ public class HbaseAPI {
     /**
      * 删除一条数据
      *
+     *
+     *
      * @param tableName
      * @param rowKey
      * @param cf
@@ -124,7 +159,7 @@ public class HbaseAPI {
     public static void deleteData(String tableName, String rowKey, String cf, String cn) throws IOException {
         Table table = connection.getTable(TableName.valueOf(tableName));
         Delete delete = new Delete(rowKey.getBytes());
-        delete.addColumn(cf.getBytes(),cn.getBytes());
+        delete.addColumn(cf.getBytes(), cn.getBytes());
         table.delete(delete);
         table.close();
 
@@ -142,14 +177,16 @@ public class HbaseAPI {
      */
     public static void addRowData(String tableName, String rowKey, String columnFamily, String
             column, String value) throws IOException {
-        //创建HTable对象
+        //  1、创建HTable对象
 //        HTable hTable = new HTable(conf, tableName);
         Table hTable = connection.getTable(TableName.valueOf(tableName));
-        //向表中插入数据
+        //  2、创建put 对象
         Put put = new Put(Bytes.toBytes(rowKey));
-        //向Put对象中组装数据
+        //  3、向Put对象中组装数据
         put.addColumn(Bytes.toBytes(columnFamily), Bytes.toBytes(column), Bytes.toBytes(value));
+        // 4、插入数据
         hTable.put(put);
+        // 5、关闭表连接，不能直接放到close 里面因为，每次操作的表都不一定是同一个
         hTable.close();
         System.out.println("插入数据成功");
     }
@@ -174,17 +211,19 @@ public class HbaseAPI {
     }
 
     /**
-     * 获取所有的数据
+     * scan 扫描获取所有的数据
      *
      * @param tableName
      * @throws IOException
      */
     public static void getAllRows(String tableName) throws IOException {
 //        HTable hTable = new HTable(conf, tableName);
+
+        // 1、获取表对象
         Table hTable = connection.getTable(TableName.valueOf(tableName));
-        //得到用于扫描region的对象
+        // 2、得到用于扫描region的对象
         Scan scan = new Scan();
-        //使用HTable得到resultcanner实现类的对象
+        //3、扫描表————使用HTable得到resultcanner实现类的对象
         ResultScanner resultScanner = hTable.getScanner(scan);
         for (Result result : resultScanner) {
             Cell[] cells = result.rawCells();
@@ -234,9 +273,19 @@ public class HbaseAPI {
     public static void getRowQualifier(String tableName, String rowKey, String family, String
             qualifier) throws IOException {
 //        HTable table = new HTable(conf, tableName);
+        // 1、获取表对象
         Table table = connection.getTable(TableName.valueOf(tableName));
+
+        // 2、创建get 对象
         Get get = new Get(Bytes.toBytes(rowKey));
+
+        // 设置货物数据的列族和列信息
         get.addColumn(Bytes.toBytes(family), Bytes.toBytes(qualifier));
+
+        // 设置获取数据的版本数
+        get.setMaxVersions(2);
+
+        //3、获取数据
         Result result = table.get(get);
         for (Cell cell : result.rawCells()) {
             System.out.println("行键:" + Bytes.toString(result.getRow()));

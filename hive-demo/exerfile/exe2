@@ -1,0 +1,48 @@
+2、JD
+有50w个店铺，每个顾客访问任何-一个店铺的任何-一个商品时都会产生-条访问
+日志，访问日志存储的表名为visit2， 访客的用户id为user_ id，被访问的店铺名称为shop,
+请统计:。
+1)每个店铺的UV (访客数)。
+2)每个店铺访问次数top3的访客信息。输出店铺名称、访客id、访问次数。
+
+问题1 分析；
+1、因为数据量比较大，不能直接使用  distinct
+distinct 会让数据进入到同一个reducer 中，导致数据量太大
+select  shop, count(distinct userID) uv from visit2 group by shop;
+
+2、优化方案：
+    1）先去重
+    select shop,userID from visit2 group by shop,userID  ---t1
+    2）再查询
+    select shop,count(*) from t1 group by shop;
+
+    综合查询：
+    select shop,count(*) from (select shop,userID from visit2 group by shop,userID )t1 group by shop;
+
+问题2 分析
+1、计算每个人访问每个店铺的总次数
+select shop,userID,count(*) sumCount  from visit2 group by shop,userID ----> t1
+
+2、针对同一店铺，对访问次数进行逆序排序，并计算rank 值
+select shop,userID,ct,row_number() over(partition by shop order by ct desc ) rk from t1
+即
+select shop,userID,ct,row_number() over(partition by shop order by ct desc ) rk from (select shop,userID,count(*) ct from visit2 group by shop,userID )t1 ;  ---->t2
+
+3、去店铺访问前三名的用户
+select shop ,userID,ct from t2 where rk <=3;
+即：
+select shop ,userID,ct from (select shop,userID,ct,row_number() over(partition by shop order by ct desc ) rk from (select shop,userID,count(*) ct from visit2 group by shop,userID )t1) t2 where rk <=3;
+
+此处用的是 row_number（） 函数，因为排名存在成绩一样情况，可以用 rank() 函数酌情处理
+
+查询：
+shop	userid	ct
+a	u5	3
+a	u1	3
+a	u2	2
+b	u4	2
+b	u1	2
+b	u5	1
+c	u2	2
+c	u6	1
+c	u3	1

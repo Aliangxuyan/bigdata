@@ -11,6 +11,7 @@
 
     <groupId>com.lxy.bigdata</groupId>
     <artifactId>hive-demo</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -24,6 +25,9 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>guli-vedio</module>
+    </modules>
     <!-- 自定义函数用-->
     <dependencies>
         <dependency>

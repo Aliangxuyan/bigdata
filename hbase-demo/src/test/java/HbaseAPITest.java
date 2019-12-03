@@ -6,6 +6,10 @@ import java.io.IOException;
 /**
  * @author lxy
  * @date 2019-05-29
+ *
+ * DDL
+ *
+ * DML
  */
 public class HbaseAPITest {
     @Test

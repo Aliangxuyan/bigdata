@@ -1,0 +1,56 @@
+原数据库数据
+u01	2019/1/21	5
+u02	2019/1/23	6
+u03	2019/1/22	8
+u04	2019/1/20	3
+u01	2019/1/23	6
+u01	2019/2/21	8
+u02	2019/1/23	6
+u01	2019/2/22	4
+
+需要查询数据
+
+
+
+
+
+
+
+
+
+***************************************************************************
+create table visit(userID string,visitDate string,visitCount string) row format delimited fields terminated by ',';
+
+load data local inpath  '/opt/bigdata/hive-1.2.1/tmp/visit.txt' into table visit;
+
+select userID, date_format(regexp_replace(visitDate,'/','-'),'yyyy-MM') mn from visit;
+
+
+ select userId,mn,sum(visitCount) from(select userID,date_format(regexp_replace(visitDate,'/','-'),'yyyy-MM') mn, visitCount from visit)t1 group by userID,mn;
+
+ OR
+
+ select userId,mn,sum(visitCount) from(select userID,date_format(regexp_replace(visitDate,'/','-'),'yyyy-MM') mn, visitCount from visit)t1 group by userID,mn;
+ over 是在group by 的结果集上
+**********************
+子查询：(从每个子查询结果集上进行统计查询，一步一步分析)
+
+select userID,date_format(regexp_replace(visitDate,'/','-'),'yyyy-MM') mn, visitCount from visit
+
+select userID,mn,sum(visitcount) sum_visitCount from (select userID,date_format(regexp_replace(visitDate,'/','-'),'yyyy-MM') mn, visitCount from visit) t1 group by userID,mn
+
+select  userId,mn,sum_visitCount, sum(sum_visitCount) over (partition by userID order by mn) from (select userID,mn,sum(visitcount) sum_visitCount from (select userID,date_format(regexp_replace(visitDate,'/','-'),'yyyy-MM') mn, visitCount from visit) t1 group by userID,mn)t2;
+
+
+用子查询：
+
+查询结果：（和要求一样）
+
+userid	mn	sum_visitcount	sum_window_0
+u01	2019-01	11.0	11.0
+u01	2019-02	12.0	23.0
+u02	2019-01	12.0	12.0
+u03	2019-01	8.0	8.0
+u04	2019-01	3.0	3.0
+
+

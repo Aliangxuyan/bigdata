@@ -2,28 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>hive-demo</artifactId>
+        <groupId>com.lxy.bigdata</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lxy.bigdata</groupId>
-    <artifactId>bigdata</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>guli-vedio</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>hdfsclient-demo</module>
-        <module>map-reduce-demo</module>
-        <module>compress-demo</module>
-        <module>yarn-demo</module>
-        <module>zookeeper-demo</module>
-        <module>function-demo</module>
-        <module>hive-demo</module>
-        <module>hbase-demo</module>
-        <module>scala-demo</module>
-        <module>spark-demo</module>
-        <module>kafka-demo</module>
-        <module>project-ct1</module>
-        <module>guli-weibo</module>
-        <module>flume-demo</module>
-    </modules>
 
     <dependencies>
         <dependency>
@@ -51,14 +39,6 @@
             <artifactId>hadoop-hdfs</artifactId>
             <version>2.7.2</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
-        </dependency>
-
-
     </dependencies>
 
 
