@@ -23,6 +23,7 @@
         <module>project-ct1</module>
         <module>guli-weibo</module>
         <module>flume-demo</module>
+        <module>azkaban-demo</module>
     </modules>
 
     <dependencies>
