@@ -9,14 +9,27 @@ import lombok.NoArgsConstructor;
  * @date 2019-11-18
  * 名称常量枚举类型
  */
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public enum Names implements Val {
-    NAMESPACE("ct");
+    NAMESPACE("ct"),
+    TOPIC("ct"),
+    TABLE("ct:calllog"),
+    CF_CALLER("caller"),
+    CF_CALLEE("callee"),
+    CF_INFO("info");
 
     private String name;
 
-    public Object value() {
+    public String value() {
+        return name;
+    }
+
+    public void setValue(Object val) {
+        this.name = (String) val;
+    }
+
+    public String getValue() {
         return name;
     }
 }
