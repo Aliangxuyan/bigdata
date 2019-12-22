@@ -24,7 +24,7 @@
         <module>guli-weibo</module>
         <module>flume-demo</module>
         <module>azkaban-demo</module>
-        <module>atguigu-project-ct</module>
+        <module>ECommerceRecommendSystem</module>
     </modules>
 
     <dependencies>
