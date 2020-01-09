@@ -73,7 +73,7 @@ object ContentRecommender {
     val wordsDataDF = tokenizer.transform(productTagsDF)
 
     // 定义一个hashingTf 工具，计算TF
-    val hashingTF = new HashingTF().setInputCol("words").setOutputCol("rawFeatures").setNumFeatures()
+    val hashingTF = new HashingTF().setInputCol("words").setOutputCol("rawFeatures").setnu
 
     wordsDataDF.show()
 

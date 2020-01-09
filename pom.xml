@@ -25,6 +25,8 @@
         <module>flume-demo</module>
         <module>azkaban-demo</module>
         <module>ECommerceRecommendSystem</module>
+        <module>log-collector</module>
+        <module>flumeinterceptor</module>
     </modules>
 
     <dependencies>
