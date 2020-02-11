@@ -27,6 +27,8 @@
         <module>ECommerceRecommendSystem</module>
         <module>log-collector</module>
         <module>flumeinterceptor</module>
+        <module>FlinkTutorial</module>
+        <module>UserBehaviorAnalysis</module>
     </modules>
 
     <dependencies>

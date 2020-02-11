@@ -58,7 +58,7 @@
             <TXID>5</TXID>
             <LENGTH>0</LENGTH>
             <INODEID>16389</INODEID>
-            <PATH>/user/lxy/input/wc.input._COPYING_</PATH>
+            <PATH>/user/lxy/input/com.lxy.wc.input._COPYING_</PATH>
             <REPLICATION>1</REPLICATION>
             <MTIME>1532875400431</MTIME>
             <ATIME>1532875400431</ATIME>
@@ -93,7 +93,7 @@
         <OPCODE>OP_ADD_BLOCK</OPCODE>
         <DATA>
             <TXID>8</TXID>
-            <PATH>/user/lxy/input/wc.input._COPYING_</PATH>
+            <PATH>/user/lxy/input/com.lxy.wc.input._COPYING_</PATH>
             <BLOCK>
                 <BLOCK_ID>1073741825</BLOCK_ID>
                 <NUM_BYTES>0</NUM_BYTES>
@@ -109,7 +109,7 @@
             <TXID>9</TXID>
             <LENGTH>0</LENGTH>
             <INODEID>0</INODEID>
-            <PATH>/user/lxy/input/wc.input._COPYING_</PATH>
+            <PATH>/user/lxy/input/com.lxy.wc.input._COPYING_</PATH>
             <REPLICATION>1</REPLICATION>
             <MTIME>1532875401045</MTIME>
             <ATIME>1532875400431</ATIME>
@@ -134,8 +134,8 @@
         <DATA>
             <TXID>10</TXID>
             <LENGTH>0</LENGTH>
-            <SRC>/user/lxy/input/wc.input._COPYING_</SRC>
-            <DST>/user/lxy/input/wc.input</DST>
+            <SRC>/user/lxy/input/com.lxy.wc.input._COPYING_</SRC>
+            <DST>/user/lxy/input/com.lxy.wc.input</DST>
             <TIMESTAMP>1532875401055</TIMESTAMP>
             <RPC_CLIENTID>75504ab0-3049-4ff0-a869-907e3e51b37f</RPC_CLIENTID>
             <RPC_CALLID>9</RPC_CALLID>

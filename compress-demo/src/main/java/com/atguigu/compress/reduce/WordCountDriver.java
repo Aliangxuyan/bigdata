@@ -1,4 +1,5 @@
 package com.atguigu.compress.reduce;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -45,6 +46,6 @@ public class WordCountDriver {
 
         boolean result = job.waitForCompletion(true);
 
-        System.exit(result?1:0);
+        System.exit(result ? 1 : 0);
     }
 }

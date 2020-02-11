@@ -63,11 +63,11 @@ public class OrderBean implements WritableComparable<OrderBean> {
 
         int result;
 
-        if (order_id > o.getOrder_id()) {
-            result = 1;
-        } else if (order_id < o.getOrder_id()) {
-            result = -1;
-        } else {
+            if (order_id > o.getOrder_id()) {
+                result = 1;
+            } else if (order_id < o.getOrder_id()) {
+                result = -1;
+            } else {
             // 价格倒序排序
             result = price > o.getPrice() ? -1 : 1;
         }
