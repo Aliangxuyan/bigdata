@@ -15,7 +15,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>HotItemsAnalysis</module>
-        <module>NewWorkFlowAnalysis</module>
+        <module>NetWorkFlowAnalysis</module>
+        <module>MarketAnalysis</module>
+        <module>LoginFailDetect</module>
+        <module>OrderPayDetect</module>
     </modules>
 
     <properties>
