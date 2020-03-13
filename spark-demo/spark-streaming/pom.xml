@@ -16,6 +16,7 @@
     <modules>
         <module>wordcount</module>
         <module>streaming-kafka</module>
+        <module>sparkstreaming_windowWordCount</module>
     </modules>
 
 

@@ -12,6 +12,8 @@ import java.io.IOException;
  *
  * Created by lxy on 2018/7/31.
  * 1 实现writable接口
+ *
+ *
  */
 @Data
 public class FlowBean implements Writable,WritableComparable<FlowBean> {

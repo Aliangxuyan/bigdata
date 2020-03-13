@@ -21,7 +21,8 @@ import scala.collection.mutable.ListBuffer
 
 /**
   * @author lxy
-  * @date 2020-02-11
+  *  2020-02-11
+  *      热销商品topN
   */
 
 // 定义输入数据的样例类

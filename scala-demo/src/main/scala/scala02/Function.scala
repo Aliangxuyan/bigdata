@@ -2,10 +2,17 @@ package scala02
 
 /**
   * @author lxy
-  * @date 2019-12-10
-  *       高阶函数
+  *         2019-12-10
+  *         高阶函数
   */
 object Function {
+
+  def main(args: Array[String]): Unit = {
+    //    println(sum(1,2,3))
+    //    f6()
+    //    f1()
+    f5()
+  }
 
   //1.1  作为参数的函数
   def f1() {
@@ -14,6 +21,7 @@ object Function {
     val result1 = Array(1, 2, 3, 4).map(plus(_))
     println(result1.mkString(","))
   }
+
 
   // 1.2  匿名函数 即没有名字的函数，可以通过函数表达式来设置匿名函数
   def f2(): Unit = {
@@ -149,9 +157,14 @@ object Function {
     }
   }
 
+  //  变长参数
+  def sum(args: Int*) = {
+    var result = 0
+    for (arg <- args)
+      result = result + arg
+    result
 
-  def main(args: Array[String]): Unit = {
-    f6()
-    //    f1()
   }
+
+
 }

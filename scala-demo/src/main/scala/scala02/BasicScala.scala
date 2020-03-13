@@ -2,17 +2,36 @@ package scala02
 
 /**
   * @author lxy
-  * @date 2019-12-09
+  *         2019-12-09
   */
-object BasicScala {
+object BasicuntilScala {
 
   def main(args: Array[String]): Unit = {
-    val tuple1 = (1, 2, 3, "heiheihei")
-    println(tuple1._1)
-    println(tuple1)
-    for (item <- tuple1.productIterator){
-      println(item)
+    //    val tuple1 = (1, 2, 3, "heiheihei")
+    //    println(tuple1._1)
+    //    println(tuple1)
+    //    for (item <- tuple1.productIterator){
+    //      println(item)
+    //    }
+
+    for (i <- 1 until 3) {
+      print(i + " ")
     }
+    println()
+
+    for (i <- 1 to 3 if i % 2 == 0) {
+      print(i + " ")
+    }
+
+    for (i <- 1 to 3; j <- 1 to 2) {
+      print(i * 3 + " ")
+    }
+    println()
+
+    val for5 = for (i <- 1 to 3) yield i
+    println(for5)
+
+
   }
 
 
@@ -68,7 +87,8 @@ object BasicScala {
     //定义
     val arr1 = new Array[Int](10)
     //赋值
-    arr1(1) = 7 // 集合元素采用小括号访问
+    arr1(1) = 7
+    // 集合元素采用小括号访问
     // 或：
     //定义
     val arr2 = Array(1, 2)

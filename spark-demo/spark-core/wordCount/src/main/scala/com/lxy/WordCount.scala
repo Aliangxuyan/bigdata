@@ -4,7 +4,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * @author lxy
-  * @date 2019-12-05
+  *  2019-12-05
   */
 object WordCount {
   def main(args: Array[String]): Unit = {

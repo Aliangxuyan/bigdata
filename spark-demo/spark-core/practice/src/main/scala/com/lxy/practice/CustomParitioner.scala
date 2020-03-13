@@ -4,7 +4,7 @@ import org.apache.spark.{Partitioner, SparkConf, SparkContext}
 
 /**
   * @author lxy
-  * @date 2019-12-07
+  *  2019-12-07
   */
 class CustomParitioner(numPer: Int) extends Partitioner {
   override def numPartitions: Int = numPer

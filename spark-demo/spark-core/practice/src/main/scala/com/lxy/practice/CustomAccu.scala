@@ -7,7 +7,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * @author lxy
-  * @date 2019-12-07
+  *         2019-12-07
   */
 class CustomAccu extends AccumulatorV2[String, java.util.Set[String]] {
 
@@ -45,7 +45,7 @@ class CustomAccu extends AccumulatorV2[String, java.util.Set[String]] {
   }
 
   //读取最终的值
-  override def value: util.Set[String] = ???
+  override def value: util.Set[String] = _logArray
 }
 
 object logAccu {
@@ -69,7 +69,7 @@ object logAccu {
       true
     }.collect()
 
-   accu.value
+    accu.value
 
     sc.stop()
   }

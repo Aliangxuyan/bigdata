@@ -5,6 +5,9 @@ import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
 import org.apache.spark.sql.types._
 
+/**
+  * 自定义聚合函数
+  */
 class MyAverage extends UserDefinedAggregateFunction{
 
   //聚合函数输入的数据类型
@@ -16,7 +19,7 @@ class MyAverage extends UserDefinedAggregateFunction{
   //返回值得类型
   override def dataType: DataType = DoubleType
 
-  //幂等性
+  //幂性等
   override def deterministic: Boolean = true
 
   //初始化你的数据结构
@@ -51,6 +54,7 @@ object Test{
     val conf = new SparkConf().setAppName("udaf").setMaster("local[*]")
     val spark = SparkSession.builder().config(conf).getOrCreate()
 
+    // 倒入 spark 变量的隐式转换
     import spark.implicits._
 
     //注册

@@ -2,7 +2,7 @@ package scala02
 
 /**
   * @author lxy
-  * @date 2019-12-10
+  *  2019-12-10
   */
 class dog {
   private var leg = 4

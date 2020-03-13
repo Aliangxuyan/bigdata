@@ -4,7 +4,7 @@ import scala.collection.mutable.ArrayBuffer
 
 /**
   * @author lxy
-  * @date 2019-12-09
+  *         2019-12-09
   */
 object DataStructure {
 
@@ -103,6 +103,7 @@ object DataStructure {
 
   // 队列 Queue
   def f8(): Unit = {
+    //    1)  队列的创建
     import scala.collection.mutable
     val q1 = new mutable.Queue[Int]
     println(q1)
@@ -346,7 +347,7 @@ object DataStructure {
 
   // 类型模式
   def f18: Unit = {
-    val a = 8
+    val a = 4
     val obj = if (a == 1) 1
     else if (a == 2) "2"
     else if (a == 3) BigInt(3)
@@ -512,9 +513,11 @@ object DataStructure {
   def main(args: Array[String]): Unit = {
     f22
     //    f7()
+    //    f8()
     //    f11()
-    //    f12()
+    //        f12()
     //    f13()
+    //    f21
     //    f14()
     //    传递一个值，并打印stream集合
     //    val tenOrMore = numsForm(10)

@@ -11,6 +11,14 @@ import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer011, Flink
 /**
   * @author lxy
   * @date 2020-02-04
+  *
+  *      def print(): DataStreamSink[T] = stream.print()
+  *      dataStream.print()  print() 也是一种sink
+  *
+  *
+  *      一般真实的情况多是处理实时数据
+  *      source : kafka
+  *      sink :kafka | es | redis | jdbc eg...
   */
 object KafkaSinkTest {
   def main(args: Array[String]): Unit = {

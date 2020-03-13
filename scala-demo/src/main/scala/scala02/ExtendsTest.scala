@@ -2,12 +2,12 @@ package scala02
 
 /**
   * @author lxy
-  * @date 2019-12-11
+  *  2019-12-11
   */
 //四  继承
-class Person {
-  var name = ""
-}
+//class Person {
+//  var name = ""
+//}
 
 class Employee extends Person {
   var salary = 0.0
@@ -48,10 +48,10 @@ class Employee1 extends Person1 {
   * @param name
   * @param age
   */
-class Person2(val name: String, val age: Int) {
-  override def toString = getClass.getName + "[name=" + name +
-    ",age=" + age + "]"
-}
+//class Person2(val name: String, val age: Int) {
+//  override def toString = getClass.getName + "[name=" + name +
+//    ",age=" + age + "]"
+//}
 
 class Employee2(name: String, age: Int, val salary: Double) extends Person2(name, age) {
   override def toString = super.toString + "[salary=" + salary + "]"

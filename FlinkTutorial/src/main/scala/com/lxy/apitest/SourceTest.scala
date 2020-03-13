@@ -50,7 +50,7 @@ object SourceTest {
     val stream4 = env.addSource(new SensorSource())
 
     // sink输出
-    stream4.print("stream3")
+    stream4.print("stream4")
 
 
 //    stream1.print("stream1").setParallelism(1)

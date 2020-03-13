@@ -2,7 +2,7 @@ package scan01
 
 /**
   * @author lxy
-  * @date 2019-11-15
+  *  2019-11-15
   */
 object lookSourceCode {
   def main(args: Array[String]): Unit = {

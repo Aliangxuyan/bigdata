@@ -6,7 +6,7 @@ import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 /**
   * @author lxy
-  * @date 2020-02-11
+  *  2020-02-11
   */
 object KafkaProducer {
 

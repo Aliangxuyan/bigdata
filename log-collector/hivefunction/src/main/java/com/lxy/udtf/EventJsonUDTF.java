@@ -54,7 +54,7 @@ public class EventJsonUDTF extends GenericUDTF {
                         String[] result = new String[2];
                         try {
                             result[0] = ja.getJSONObject(i).getString("en");
-                            result[0] = ja.getString(i);
+                            result[1] = ja.getString(i);
                         } catch (Exception e) {
                             e.printStackTrace();
                             continue;
