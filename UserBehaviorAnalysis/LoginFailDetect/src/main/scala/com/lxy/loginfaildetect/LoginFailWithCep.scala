@@ -13,6 +13,8 @@ import org.apache.flink.streaming.api.windowing.time.Time
 /**
   * @author lxy
   *         2020/2/13
+  *
+  *         CEP （复杂时间处理）
   */
 object LoginFailWithCep {
 
@@ -35,7 +37,7 @@ object LoginFailWithCep {
     val warningStream = loginEventStream
       .keyBy(_.userId) // 以用户ID 做为分组
 
-    // 2、定义匹配模式,连续两次登录失败
+    // 2、定义匹配模式,连续两次登录失败，严格紧邻  followedBy() 宽松紧邻，该需求需要严格紧邻
     val loginFailPattern = Pattern.begin[LoginEvent]("begin").where(_.eventType == "fail")
       .next("next").where(_.eventType == "fail")
       .within(Time.seconds(2))

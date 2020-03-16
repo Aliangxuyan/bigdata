@@ -17,6 +17,14 @@ import scala.util.Random
 /**
   * @author lxy
   *         2020-02-12
+  *
+  *         4、市场营销分析 —— APP 市场推广统计
+  *         基本需求
+  *         – 从埋点日志中，统计 APP 市场推广的数据指标
+  *         – 按照不同的推广渠道，分别统计数据
+  *         解决思路
+  *         – 通过过滤日志中的用户行为，按照不同的渠道进行统计
+  *         – 可以用 process function 处理，得到自定义的输出数据信息
   */
 // 输入数据样例类
 case class MarketingUserBehavior(userId: String, behavior: String, channel: String, timestamp: Long)
@@ -31,7 +39,7 @@ object AppMarketingByChannel {
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
 
     val dataStream = env.addSource(new SimulatedEventSource())
-      .assignAscendingTimestamps(_.timestamp)
+      .assignAscendingTimestamps(_.timestamp) //毫秒
       .filter(_.behavior != "UNINSTALL")
       .map(data => {
         ((data.channel, data.behavior), 1L)
@@ -39,6 +47,7 @@ object AppMarketingByChannel {
       .keyBy(_._1) // 以渠道和行为类型做为key 分组
       .timeWindow(Time.hours(1), Time.seconds(10))
       .process(new MarketingCountByChannel())
+    // 直接keyBy 之后的话，函数是 KeyedProcessFunction，次数是直接在开窗函数之后的所以函数类继承 ProcessWindowFunction
 
     dataStream.print()
     env.execute("AppMarketingByChannel job")

@@ -15,6 +15,17 @@ import org.apache.flink.util.Collector
 /**
   * @author lxy
   *         2020/2/12
+  *
+  *         • 基本需求
+  *
+  *         – 从埋点日志中，统计每小时页面广告的点击量，5秒刷新一次，并按照不同省
+  *         份进行划分
+  *         – 对于“刷单”式的频繁点击行为进行过滤，并将该用户加入黑名单
+  *
+  *         • 解决思路
+  *         – 根据省份进行分组，创建长度为1小时、滑动距离为5秒的时间窗口进行统计
+  *         – 可以用 process function 进行黑名单过滤，检测用户对同一广告的点击量， 如果超过上限则将用户信息以侧输出流输出到黑名单中
+  *
   */
 
 // 输入的广告点击事件样例类
@@ -46,9 +57,7 @@ object AdstatisticsByGeo {
       }).assignAscendingTimestamps(_.timestamp * 1000L)
 
 
-
-
-    // 自定义process function 过滤掉大量刷点击的行为
+    // 涉及到状态编程和定时器直接自定义process function 过滤掉大量刷点击的行为
     val filterBlackListStream = adEventStream
       .keyBy(data => (data.userID, data.adId))
       .process(new FilterBlackListUser(100))
@@ -82,8 +91,9 @@ object AdstatisticsByGeo {
       // 取出count 状态
       val curCount = countState.value()
 
-      // 如果是第一次处理，注册定时器,每天00：00 触发
+      // 如果是第一次处理，注册定时器,每天00：00 触发，注册一次就可以
       if (curCount == 0) {
+        // 当前时间的第二天，即明天
         val ts = (ctx.timerService().currentProcessingTime() / (1000 * 60 * 60 * 24) + 1) * (1000 * 60 * 60 * 24)
         resetTimer.update(ts)
         ctx.timerService().registerProcessingTimeTimer(ts)

@@ -16,7 +16,7 @@ object WindowTest {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     env.setParallelism(1)
-    // 设置事件时间
+    // 设置事件时间，不设置的话默认是事件处理事件
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
     env.getConfig.setAutoWatermarkInterval(500)
 
@@ -32,10 +32,10 @@ object WindowTest {
           SensorReading(dataArray(0).trim, dataArray(1).trim.toLong, dataArray(2).trim.toDouble)
         }
       )
-      //        .assignAscendingTimestamps(_.timestamp * 1000L)
+//      .assignAscendingTimestamps(_.timestamp * 1000L)  处理顺序事件
       .assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor[SensorReading](Time.seconds(1)) {
-      override def extractTimestamp(element: SensorReading): Long = element.timestamp * 1000L
-    })
+        override def extractTimestamp(element: SensorReading): Long = element.timestamp * 1000L
+      }) // 处理乱序事件
       //      .assignTimestampsAndWatermarks( new MyAssigner() )
       .map(data => (data.id, data.temperature))
       .keyBy(_._1)

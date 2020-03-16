@@ -14,6 +14,22 @@ import scala.collection.mutable.ListBuffer
 /**
   * @author lxy
   *         2020/2/12
+  *
+  *         6、恶意登录监控
+  *         • 基本需求
+  *         – 用户在短时间内频繁登录失败，有程序恶意攻击的可能
+  *         – 同一用户(可以是不同IP)在2秒内连续两次登录失败，需要报警
+  *
+  *         • 解决思路
+  *         – 将用户的登录失败行为存入 ListState，设定定时器2秒后触发，查看 ListState 中有几次失败登录
+  *         – 更加精确的检测，可以使用 CEP 库实现事件流的模式匹配
+  *
+  *
+  *         可以设置定时器，但是定时器触发的这段时间可能会漏掉一些成功失败的访问，所有不用定时器可以直接进行判断两次连续失败是否在2S 之内
+  *
+  *         下面是连续 2次的问题，如果是3 或者4  的话可以判断状态编程里面已经有几个，都要进行判断，
+  *         对于有序和稍微乱序数据比较好实现，但是对于乱序数据连续多次登录失败的问题，下面实现不OK ，需要用CEP 来实现复杂事件
+  *
   */
 // 输入的登录时间样例类
 case class LoginEvent(userId: Long, ip: String, eventType: String, eventTime: Long)
@@ -36,6 +52,7 @@ object LoginFail {
         val dataArray = data.split(",")
         LoginEvent(dataArray(0).trim.toLong, dataArray(1).trim, dataArray(2).trim, dataArray(3).trim.toLong)
       })
+      // 分配时间戳，log日志中存在乱序，可以设置watermark 设置延迟，延迟时间根据自己的需求设置
       .assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor[LoginEvent](Time.seconds(5)) {
         override def extractTimestamp(element: LoginEvent): Long = element.eventTime * 1000L
       })
@@ -54,7 +71,9 @@ object LoginFail {
     lazy val loginFailState: ListState[LoginEvent] = getRuntimeContext.getListState(new ListStateDescriptor[LoginEvent]("login-fail-state", classOf[LoginEvent]))
 
     override def processElement(value: LoginEvent, ctx: KeyedProcessFunction[Long, LoginEvent, Warning]#Context, out: Collector[Warning]): Unit = {
-      //      // 判断类型是否是fail，只添加fail 的事件到状态
+      //
+      // 不能等到2S 之后做报警输出，又可能最后一次输出是success ，应该错误2次之后直接判断是否在2S 之内直接输出，这样可以不需要定时器
+      // 判断类型是否是fail，只添加fail 的事件到状态
       //      if (value.eventType == "fail") {
       //        val loginFailList = loginFailState.get()
       //        // 如果是第一个失败的状态，注册定时器
@@ -67,6 +86,7 @@ object LoginFail {
       //        loginFailState.add(value)
       //      }
 
+      // 不能直接在外面 fiter 中进行过滤，因为两次fail 2S 之内可能存在success 的情况，这样会存在问题
       if (value.eventType == "fail") {
         // 如果是失败，判断之前是否有登录失败的事件
         val iter = loginFailState.get().iterator()

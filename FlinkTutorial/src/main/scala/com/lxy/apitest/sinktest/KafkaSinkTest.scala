@@ -12,13 +12,21 @@ import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer011, Flink
   * @author lxy
   * @date 2020-02-04
   *
-  *      def print(): DataStreamSink[T] = stream.print()
+  *       def print(): DataStreamSink[T] = stream.print()
   *      dataStream.print()  print() 也是一种sink
   *
   *
-  *      一般真实的情况多是处理实时数据
-  *      source : kafka
-  *      sink :kafka | es | redis | jdbc eg...
+  *       一般真实的情况多是处理实时数据(如何构建数据管道)
+  *       source : kafka
+  *       sink :kafka | es | redis | jdbc eg...
+  *
+  *       // 简单的实现数据可能会丢失，如何实现端到端的数据一致性（两阶段提交）
+  *
+  *
+  *       两阶段提交注意点：
+  *       1）kafka 在source 断和 sink 断事务的超时时间
+  *       2）两阶段提交必须保证sink 端也支持事务
+  *
   */
 object KafkaSinkTest {
   def main(args: Array[String]): Unit = {

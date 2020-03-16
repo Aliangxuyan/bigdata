@@ -21,8 +21,24 @@ import scala.collection.mutable.ListBuffer
 
 /**
   * @author lxy
-  *  2020-02-11
-  *      热销商品topN
+  *         2020-02-11
+  *         1、热门实时商品统计
+  *         热销商品topN ————基于埋点日志
+  *
+  *         基本需求
+  *         – 统计近1小时内的热门商品，每5分钟更新一次
+  *         – 热门度用浏览次数(“pv”)来衡量
+  *
+  *         • 解决思路
+  *         – 在所有用户行为数据中，过滤出浏览(“pv”)行为进行统计
+  *         – 构建滑动窗口，窗口长度为1小时，滑动距离为5分钟
+  *
+  *
+  *         思路：
+  *         整体：按照窗口做聚合，在按照窗口做排序，然后输出自己想要的信息
+  *
+  *         扩展：
+  *         后面处理完的数据可以保存到，数据库 | es | redis | kafka 等其他地方保存做实时监控等
   */
 
 // 定义输入数据的样例类
@@ -38,16 +54,17 @@ object hotitems {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
 
     env.setParallelism(1)
+    // 设置时间语义，事件
     env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime)
     // 2、读取数据
     // 从kafka 读取数据
 
-//    val dataStream = env.readTextFile("/Users/lxy/Documents/Idea_workspace/bigdata/UserBehaviorAnalysis/HotItemsAnalysis/src/main/resources/UserBehavior.csv")
+    //    val dataStream = env.readTextFile("/Users/lxy/Documents/Idea_workspace/bigdata/UserBehaviorAnalysis/HotItemsAnalysis/src/main/resources/UserBehavior.csv")
     //      .map(data => {
     //        val dataArray = data.split(",")
     //        UserBehavior(dataArray(0).trim.toLong, dataArray(1).trim.toLong, dataArray(2).trim.toInt, dataArray(3).trim, dataArray(4).trim.toLong)
     //      })
-    //      .assignAscendingTimestamps(_.timestamp * 1000L)
+    //      .assignAscendingTimestamps(_.timestamp * 1000L)  //提取事件事件和watermark
 
     val properties = new Properties()
     properties.setProperty("bootstrap.servers", "localhost:9092")
@@ -56,7 +73,7 @@ object hotitems {
     properties.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     properties.setProperty("auto.offset.reset", "latest")
 
-    val dataStream = env.addSource(new FlinkKafkaConsumer[String]("hotitems",new SimpleStringSchema(),properties))
+    val dataStream = env.addSource(new FlinkKafkaConsumer[String]("hotitems", new SimpleStringSchema(), properties))
       .map(data => {
         val dataArray = data.split(",")
         UserBehavior(dataArray(0).trim.toLong, dataArray(1).trim.toLong, dataArray(2).trim.toInt, dataArray(3).trim, dataArray(4).trim.toLong)
@@ -125,7 +142,7 @@ object hotitems {
     override def processElement(value: ItemViewCount, ctx: KeyedProcessFunction[Long, ItemViewCount, String]#Context, out: Collector[String]): Unit = {
       // 把每条数据存入状态列表
       itemState.add(value)
-      // 注册一个定时器
+      // 注册一个定时器，后面时间可以长点自己就情况设置
       ctx.timerService().registerEventTimeTimer(value.windowEnd + 1)
     }
 
@@ -135,6 +152,7 @@ object hotitems {
       // 将所有state中的数据取出，放到一个listbuffer 中
       val allItems: ListBuffer[ItemViewCount] = new ListBuffer[ItemViewCount]
 
+      // 想使用foreach  必须有下面引入
       import scala.collection.JavaConversions._
       for (item <- itemState.get()) {
         allItems += item

@@ -17,7 +17,7 @@ import scala.util.Random
 
 /**
   * @author lxy
-  *  2020/2/12
+  *         2020/2/12
   */
 
 object AppMaketing {
@@ -34,7 +34,7 @@ object AppMaketing {
       })
       .keyBy(_._1) // 以渠道和行为类型做为key 分组
       .timeWindow(Time.hours(1), Time.seconds(10))
-      .aggregate(new CountAgg(), new MarketingCountTotal())
+      .aggregate(new CountAgg(), new MarketingCountTotal()) // 增量聚合
 
     dataStream.print()
     env.execute("AppMarketingByChannel job")

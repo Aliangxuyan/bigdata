@@ -24,7 +24,7 @@ object RedisSinkTest {
       .map(
         data => {
           val dataArray = data.split(",")
-          SensorReading( dataArray(0).trim, dataArray(1).trim.toLong, dataArray(2).trim.toDouble )
+          SensorReading(dataArray(0).trim, dataArray(1).trim.toLong, dataArray(2).trim.toDouble)
         }
       )
 
@@ -34,18 +34,18 @@ object RedisSinkTest {
       .build()
 
     // sink
-    dataStream.addSink( new RedisSink(conf, new MyRedisMapper()) )
+    dataStream.addSink(new RedisSink(conf, new MyRedisMapper()))
 
     env.execute("redis sink test")
   }
 }
 
-class MyRedisMapper() extends RedisMapper[SensorReading]{
+class MyRedisMapper() extends RedisMapper[SensorReading] {
 
   // 定义保存数据到redis的命令
   override def getCommandDescription: RedisCommandDescription = {
     // 把传感器id和温度值保存成哈希表 HSET key field value
-    new RedisCommandDescription( RedisCommand.HSET, "sensor_temperature" )
+    new RedisCommandDescription(RedisCommand.HSET, "sensor_temperature")
   }
 
   // 定义保存到redis的value
