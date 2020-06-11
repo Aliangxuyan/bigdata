@@ -1,7 +1,11 @@
 package com.lxy.bean;
+
+import lombok.Data;
+
 /**
  * 广告
  */
+@Data
 public class AppAd {
 
     private String entry;//入口：商品列表页=1  应用首页=2 商品详情页=3
@@ -15,67 +19,4 @@ public class AppAd {
     //一张大图+文=11   GIF大图+文=12  视频(大图)+文 = 13
     //来源于详情页相关推荐的商品，上报样式都为0（因为都是左文右图）
 
-    public String getEntry() {
-        return entry;
-    }
-
-    public void setEntry(String entry) {
-        this.entry = entry;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getBehavior() {
-        return behavior;
-    }
-
-    public void setBehavior(String behavior) {
-        this.behavior = behavior;
-    }
-
-    public String getNewstype() {
-        return newstype;
-    }
-
-    public void setNewstype(String newstype) {
-        this.newstype = newstype;
-    }
-
-    public String getShow_style() {
-        return show_style;
-    }
-
-    public void setShow_style(String show_style) {
-        this.show_style = show_style;
-    }
 }

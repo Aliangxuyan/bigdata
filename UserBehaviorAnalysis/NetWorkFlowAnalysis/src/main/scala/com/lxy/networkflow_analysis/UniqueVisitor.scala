@@ -1,6 +1,7 @@
 package com.lxy.networkflow_analysis
 
 import com.lxy.networkflow_analysis.PageView.getClass
+import org.apache.flink.api.common.functions.ReduceFunction
 import org.apache.flink.streaming.api.TimeCharacteristic
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.streaming.api.scala.function.{AllWindowFunction, WindowFunction}
@@ -55,8 +56,8 @@ object UniqueVisitor {
       })
       .assignAscendingTimestamps(_.timestamp * 1000L)
       .filter(_.behavior == "pv") // 只统计PV 操作
-      .timeWindowAll(Time.hours(1)) // 针对时间窗口去重
-      .apply(new UvCountByWindow()) // 此处可以是直接使用与聚合函数，也可以是先收集数据给windowfunction
+      .timeWindowAll(Time.hours(1)) // 针对时间窗口去重,所以先开窗口
+      .apply(new UvCountByWindow()) // 窗口处理函数，此处可以是直接使用与聚合函数，也可以是先收集数据给windowfunction
 
     dataStream.print("pv count")
     env.execute("unique  job")
@@ -73,5 +74,4 @@ object UniqueVisitor {
       out.collect(UvCount(window.getEnd, idSet.size))
     }
   }
-
 }

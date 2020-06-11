@@ -58,6 +58,8 @@ object UvWithbBloom {
       .trigger(new MyTtigger()) // 触发器，之前是都将数据加载到内存里面再做操作，现在不能让写入内存，数据量会撑爆内存，所以使用触发器
       .process(new UvCountWithBloom())
 
+    // 窗口处理函数是在当前数据收集到啦，等要关闭的时候猜调用
+
     dataStream.print()
 
     env.execute("uv with bloom job ")

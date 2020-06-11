@@ -12,3 +12,5 @@ public class OrderSortPartitioner extends Partitioner<OrderBean, NullWritable> {
         return (key.getOrder_id() & Integer.MAX_VALUE) % numReduceTasks;
     }
 }
+
+

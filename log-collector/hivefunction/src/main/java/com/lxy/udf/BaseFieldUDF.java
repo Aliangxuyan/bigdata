@@ -53,7 +53,6 @@ public class BaseFieldUDF extends UDF {
         return sb.toString();
 
     }
-
     /**
      * 数据测试
      *

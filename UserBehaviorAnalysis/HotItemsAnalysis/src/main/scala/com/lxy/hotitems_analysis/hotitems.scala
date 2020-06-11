@@ -18,6 +18,7 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer
 import org.apache.flink.util.Collector
 
 import scala.collection.mutable.ListBuffer
+import scala.math.Ordering
 
 /**
   * @author lxy
@@ -90,7 +91,6 @@ object hotitems {
       .keyBy(_.windowEnd) // 按照窗口分组
       .process(new TopNHotItems(3))
 
-
     // 4、sink:控制台输出
     //    dataStream.print()
     processedStream.print()
@@ -148,7 +148,6 @@ object hotitems {
 
     // 定时器触发时，对所有数据排序，并输出结果
     override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[Long, ItemViewCount, String]#OnTimerContext, out: Collector[String]): Unit = {
-
       // 将所有state中的数据取出，放到一个listbuffer 中
       val allItems: ListBuffer[ItemViewCount] = new ListBuffer[ItemViewCount]
 

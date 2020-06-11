@@ -1,7 +1,11 @@
 package com.lxy.bean;
+
+import lombok.Data;
+
 /**
  * 商品详情
  */
+@Data
 public class AppNewsDetail {
 
     private String entry;//页面入口来源：应用首页=1、push=2、详情页相关推荐=3
@@ -13,67 +17,4 @@ public class AppNewsDetail {
     private String type1;//加载失败码：把加载失败状态码报回来（报空为加载成功，没有失败）
     private String category;//分类ID（服务端定义的分类ID）
 
-    public String getEntry() {
-        return entry;
-    }
-
-    public void setEntry(String entry) {
-        this.entry = entry;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getGoodsid() {
-        return goodsid;
-    }
-
-    public void setGoodsid(String goodsid) {
-        this.goodsid = goodsid;
-    }
-
-    public String getShowtype() {
-        return showtype;
-    }
-
-    public void setShowtype(String showtype) {
-        this.showtype = showtype;
-    }
-
-    public String getNews_staytime() {
-        return news_staytime;
-    }
-
-    public void setNews_staytime(String news_staytime) {
-        this.news_staytime = news_staytime;
-    }
-
-    public String getLoading_time() {
-        return loading_time;
-    }
-
-    public void setLoading_time(String loading_time) {
-        this.loading_time = loading_time;
-    }
-
-    public String getType1() {
-        return type1;
-    }
-
-    public void setType1(String type1) {
-        this.type1 = type1;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

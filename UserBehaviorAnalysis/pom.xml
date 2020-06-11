@@ -46,7 +46,9 @@
             <artifactId>kafka_${scala.binary.version}</artifactId>
             <version>${kafka.version}</version>
         </dependency>
-        <!--        kafka 连接器版本-->
+        <!--        kafka 连接器版本,此处引入的是kafka 的通用连接器，在使用的时候不在指定版本
+                直接使用 FlinkKafkaConsumer 就可以跟踪最新的kafka  版本
+        -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>

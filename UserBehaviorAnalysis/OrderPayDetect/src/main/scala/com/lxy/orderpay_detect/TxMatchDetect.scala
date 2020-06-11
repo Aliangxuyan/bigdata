@@ -10,7 +10,16 @@ import org.apache.flink.util.Collector
   * @author lxy
   *         2020/2/13
   *
-  *         支付对账
+  *         8、 支付对账 —— 状态编程，设置定时器，并且侧输出流需要处理的数据
+  *
+  *         订单支付实时对账
+  *         • 基本需求
+  *         – 用户下单并支付后，应查询到账信息，进行实时对账
+  *         – 如果有不匹配的支付信息或者到账信息，输出提示信息
+  *
+  *         • 解决思路
+  *         – 从两条流中分别读取订单支付信息和到账信息，合并处理
+  *         – 用 connect 连接合并两条流，用 coProcessFunction 做匹配处理
   */
 
 // 定义接受流数据事件的样例类
@@ -19,9 +28,9 @@ case class ReceiptEvent(txId: String, payChannel: String, eventTime: Long)
 object TxMatchDetect {
 
   // 定义侧输出流tag
-  // 没有匹配到pay
+  // 没有匹配到pay，已到账
   val unmatchedPays = new OutputTag[OrderEvent]("unmatchedPays")
-  // 没有匹配搭配order
+  // 没有匹配搭配order，未到账
   val unmatchedReceipts = new OutputTag[ReceiptEvent]("unmatchedReceipts")
 
   def main(args: Array[String]): Unit = {
@@ -31,21 +40,21 @@ object TxMatchDetect {
 
     // 1、读取订单数据
     val resource = getClass.getResource("/OrderLog.csv")
-    //    val orderEventStream = env.readTextFile(resource.getPath)
-    val orderEventStream = env.socketTextStream("localhost", 7777)
+    val orderEventStream = env.readTextFile(resource.getPath)
+      //    val orderEventStream = env.socketTextStream("localhost", 7777)
       .map(data => {
         val dataArray = data.split(",")
         OrderEvent(dataArray(0).trim.toLong, dataArray(1).trim, dataArray(2).trim, dataArray(3).trim.toLong)
       })
-      .filter(_.txId != "")
+      .filter(_.txId != "") // 做对账是针对支付记录信息，可以排除创建订单的记录
       .assignAscendingTimestamps(_.eventTime * 1000)
       .keyBy(_.txId)
 
 
     // 1、读取支付到账数据流
-    //    val receiptResource = getClass.getResource("/ReceiptLog.csv")
-    //    val receiptEventStream = env.readTextFile(receiptResource.getPath)
-    val receiptEventStream = env.socketTextStream("localhost", 8888)
+    val receiptResource = getClass.getResource("/ReceiptLog.csv")
+    val receiptEventStream = env.readTextFile(receiptResource.getPath)
+      //    val receiptEventStream = env.socketTextStream("localhost", 8888)
       .map(data => {
         val dataArray = data.split(",")
         ReceiptEvent(dataArray(0).trim, dataArray(1).trim, dataArray(2).trim.toLong)

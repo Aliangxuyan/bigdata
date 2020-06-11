@@ -19,8 +19,8 @@ object Accu {
 
     // 创建spackContext 对象
     val sc = new SparkContext(conf)
-//    var sum = 0  结果还是0 因为sum 控制权分别在 driver ，而在 executor中有执行所以得使用累加器解决类似问题
-    // 申明累加器变量
+    //    var sum = 0  结果还是0 因为sum 控制权分别在 driver ，而在 executor中有执行所以得使用累加器解决类似问题
+    //    // 申明累加器变量
     var sum = sc.accumulator(0)
     var rdd = sc.makeRDD(Array(1, 2, 3, 4, 5, 6, 7))
 

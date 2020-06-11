@@ -29,6 +29,7 @@
         <module>flumeinterceptor</module>
         <module>FlinkTutorial</module>
         <module>UserBehaviorAnalysis</module>
+        <module>druid</module>
     </modules>
 
     <dependencies>

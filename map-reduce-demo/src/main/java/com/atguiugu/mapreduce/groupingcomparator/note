@@ -15,3 +15,6 @@
 （2）编写OrderSortMapper
 （3）编写OrderSortPartitioner
 （4）编写OrderSortGroupingComparator
+
+
+美团：MapReduce 二次排序(编程，必选)

@@ -60,11 +60,12 @@ object NetWorkFlow {
       })
       // 乱序的话不能直接使用 assignAscendingTimestamps 提取时间戳方法，此处使用的是 周期性watermark   BoundedOutOfOrdernessTimestampExtractor
       .assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor[ApacheLogEvent](Time.seconds(1)) {
-        override def extractTimestamp(element: ApacheLogEvent): Long = element.eventTime
-      })
+      override def extractTimestamp(element: ApacheLogEvent): Long = element.eventTime
+    })
       .keyBy(_.url)
       .timeWindow(Time.minutes(10), Time.seconds(5))
-      .allowedLateness(Time.seconds(60)) // 允许60s 的迟到数据处理延迟到的数据，实际生产中不会有特别大延迟的数据，如果遇到延迟特别大的数据可以考虑sideout 侧输出流
+      // 允许60s 的迟到数据处理延迟到的数据，实际生产中不会有特别大延迟的数据，如果遇到延迟特别大的数据可以考虑sideout 侧输出流
+      .allowedLateness(Time.seconds(60))
       .aggregate(new CountAgg(), new WindowResult())
       .keyBy(_.windowEnd)
       .process(new TopNHotUrl(5))
@@ -107,7 +108,7 @@ object NetWorkFlow {
     }
 
     override def onTimer(timestamp: Long, ctx: KeyedProcessFunction[Long, UrlViewCount, String]#OnTimerContext, out: Collector[String]): Unit = {
-      // 共状态中拿到数据
+      // 从状态中拿到数据
       val allUrlViews: ListBuffer[UrlViewCount] = new ListBuffer[UrlViewCount]
       val iter = urlState.get().iterator()
 

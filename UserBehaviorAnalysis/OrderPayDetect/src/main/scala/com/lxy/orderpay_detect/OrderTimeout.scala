@@ -12,9 +12,9 @@ import org.apache.flink.streaming.api.windowing.time.Time
 /**
   * @author lxy
   *         2020/2/13
-  *         交易订单超过多久未支付
+  *         交易订单超过多久未支付（CEP 实现）
   *
-  *         订单支付实时监控
+  *         7、订单支付实时监控
   *         • 基本需求
   *         – 用户下单之后，应设置订单失效时间，以提高用户支付的意愿，并降
   *         低系统风险

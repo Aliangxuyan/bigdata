@@ -22,6 +22,7 @@ object KafkaProducer {
 
     // 从文件中读取数据，发送
     val bufferedSource = io.Source.fromFile("/Users/lxy/Documents/Idea_workspace/bigdata/UserBehaviorAnalysis/HotItemsAnalysis/src/main/resources/UserBehavior.csv")
+
     for (line <- bufferedSource.getLines()) {
       val record = new ProducerRecord[String, String](topic, line)
       producer.send(record)
