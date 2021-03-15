@@ -52,8 +52,8 @@ object OrderTimeout {
 
     // 1、读取订单数据
     val resource = getClass.getResource("/OrderLog.csv")
-    //        val orderEventStream = env.readTextFile(resource.getPath)
-    val orderEventStream = env.socketTextStream("localhost", 7777)
+            val orderEventStream = env.readTextFile(resource.getPath)
+//    val orderEventStream = env.socketTextStream("localhost", 7777)
       .map(data => {
         val dataArray = data.split(",")
         OrderEvent(dataArray(0).trim.toLong, dataArray(1).trim, dataArray(2).trim, dataArray(3).trim.toLong)

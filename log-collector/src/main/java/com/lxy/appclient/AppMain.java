@@ -150,7 +150,7 @@ public class AppMain {
     }
 
     /**
-     * 公共字段设置
+     * 公共字段设置p
      */
     private static JSONObject generateComFields() {
 

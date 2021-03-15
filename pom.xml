@@ -29,7 +29,10 @@
         <module>flumeinterceptor</module>
         <module>FlinkTutorial</module>
         <module>UserBehaviorAnalysis</module>
-        <module>druid</module>
+        <module>flink-sql</module>
+        <module>flink2clickhouse</module>
+        <module>flink_blink</module>
+        <module>gmall2021-realtime</module>
     </modules>
 
     <dependencies>

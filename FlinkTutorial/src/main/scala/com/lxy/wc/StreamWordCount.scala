@@ -16,19 +16,19 @@ object StreamWordCount {
     //    env.disableOperatorChaining()
 
     // 接收socket数据流
-    val textDataStream = env.socketTextStream("localhost", 7777)
+    //    val textDataStream = env.socketTextStream("localhost", 7777)
+    val textDataStream = env.socketTextStream(host, port)
 
     // 逐一读取数据，分词之后进行wordcount
     val wordCountDataStream = textDataStream.flatMap(_.split("\\s"))
       .filter(_.nonEmpty).startNewChain()
-      .map((_, 1))
-      .keyBy(0)
+      .map((_, 1)).keyBy(0)
       .sum(1)
 
     // 打印输出
     wordCountDataStream.print().setParallelism(1)
 
-    // 执行任务
+    // 启动执行任务
     env.execute("stream word count job")
   }
 }

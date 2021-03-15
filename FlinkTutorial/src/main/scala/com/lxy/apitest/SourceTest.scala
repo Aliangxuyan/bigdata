@@ -38,19 +38,20 @@ object SourceTest {
     // 3. 从kafka中读取数据
     // 创建kafka相关的配置
     val properties = new Properties()
-    properties.setProperty("bootstrap.servers", "localhost:9092")
+//    properties.setProperty("bootstrap.servers", "localhost:9092")
+    properties.setProperty("bootstrap.servers", "192.168.130.104:9092,192.168.130.115:9092,192.168.130.111:9092")
     properties.setProperty("group.id", "consumer-group")
     properties.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     properties.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
     properties.setProperty("auto.offset.reset", "latest")
 
-    val stream3 = env.addSource(new FlinkKafkaConsumer011[String]("sensor", new SimpleStringSchema(), properties))
+    val stream3 = env.addSource(new FlinkKafkaConsumer011[String]("yk_laxindata_wx_activity", new SimpleStringSchema(), properties))
 
     // 4. 自定义数据源
     val stream4 = env.addSource(new SensorSource())
 
     // sink输出
-    stream4.print("stream4")
+    stream3.print("stream3")
 
 
 //    stream1.print("stream1").setParallelism(1)

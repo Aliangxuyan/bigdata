@@ -2,12 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--    <parent>-->
+<!--        <artifactId>bigdata</artifactId>-->
+<!--        <groupId>com.lxy.bigdata</groupId>-->
+<!--        <version>1.0-SNAPSHOT</version>-->
+<!--    </parent>-->
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.lxy.bigdata</groupId>
-    <artifactId>FlinkTutorial</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <artifactId>flink_blink</artifactId>
     <properties>
         <log4j.version>1.2.17</log4j.version>
         <slf4j.version>1.7.22</slf4j.version>
@@ -32,44 +34,8 @@
             <version>${flink.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.bahir</groupId>
-            <artifactId>flink-connector-redis_2.11</artifactId>
-            <version>1.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-streaming-java_2.11</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>u
-            <artifactId>flink-connector-elasticsearch6_2.11</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.44</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-statebackend-rocksdb_2.11</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-<!--                <dependency>-->
-<!--                    <groupId>org.apache.flink</groupId>-->
-<!--                    <artifactId>flink-table-planner_2.12</artifactId>-->
-<!--                    <version>1.10.0</version>-->
-<!--                </dependency>-->
-        <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_2.11</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-csv</artifactId>
             <version>${flink.version}</version>
         </dependency>
         <dependency>
@@ -97,6 +63,22 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>flink-log-connector</artifactId>
+            <version>0.1.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>1.10.0</version>
         </dependency>
 
     </dependencies>
@@ -137,5 +119,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

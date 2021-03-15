@@ -10,78 +10,96 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lxy.bigdata</groupId>
-    <artifactId>UserBehaviorAnalysis</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>flink2clickhouse</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>HotItemsAnalysis</module>
-        <module>NetWorkFlowAnalysis</module>
-        <module>MarketAnalysis</module>
-        <module>LoginFailDetect</module>
-        <module>OrderPayDetect</module>
-    </modules>
 
-    <!--    为了防止一个项目的不同模块中开发自引入不同的版本，可以直接在父模块直接定义好，进行统一管理-->
     <properties>
-        <flink.version>1.7.2</flink.version>
+        <log4j.version>1.2.17</log4j.version>
+        <slf4j.version>1.7.22</slf4j.version>
         <scala.binary.version>2.11</scala.binary.version>
-        <kafka.version>2.2.0</kafka.version>
+        <flink.version>1.11.2</flink.version>
     </properties>
 
-
-    <!--    一般fink 项目都会涉及到kafka 相关，可以在父模块进行倒入-->
     <dependencies>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-scala_${scala.binary.version}</artifactId>
+            <artifactId>flink-scala_2.11</artifactId>
             <version>${flink.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-scala -->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-scala_${scala.binary.version}</artifactId>
+            <artifactId>flink-streaming-scala_2.11</artifactId>
             <version>${flink.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_${scala.binary.version}</artifactId>
-            <version>${kafka.version}</version>
-        </dependency>
-        <!--        kafka 连接器版本,此处引入的是kafka 的通用连接器，在使用的时候不在指定版本
-                直接使用 FlinkKafkaConsumer 就可以跟踪最新的kafka  版本
-        -->
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-jdbc_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ru.yandex.clickhouse/clickhouse-jdbc -->
+        <dependency>
+            <groupId>ru.yandex.clickhouse</groupId>
+            <artifactId>clickhouse-jdbc</artifactId>
+            <version>0.2.4</version>
+        </dependency>
+        <!-- 添加 Flink Table API 相关的依赖 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner-blink_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-api-scala-bridge_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-common</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
+        <!--  使用flink-connector-clickhouse写入ClickHouse
+        https://help.aliyun.com/document_detail/185696.html?spm=a2c4g.11186623.6.606.2479693b731cOT      -->
+<!--        <dependency>-->
+<!--            <groupId>com.aliyun</groupId>-->
+<!--            <artifactId>flink-connector-clickhouse</artifactId>-->
+<!--            <version>1.11.0</version>-->
+<!--        </dependency>-->
+    </dependencies>
     <build>
         <plugins>
             <!-- 该插件用于将Scala代码编译成class文件 -->
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
-                <version>4.4.0</version>
+                <version>3.4.6</version>
                 <executions>
                     <execution>
                         <!-- 声明绑定到maven的compile阶段 -->
                         <goals>
-                            <goal>testCompile</goal>
+                            <goal>compile</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
                     <descriptorRefs>
-                        <descriptorRef>
-                            jar-with-dependencies
-                        </descriptorRef>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
                 <executions>
@@ -96,6 +114,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
