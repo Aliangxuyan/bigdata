@@ -1,10 +1,13 @@
 package com.lxy.gmall.realtime.bean;
 
+import lombok.Data;
+
 /**
  * @author lxy
  * @date 2021/3/15
  * 配置表实体类
  */
+@Data
 public class TableProcess {
     //动态分流Sink常量   改为小写和脚本一致
     public static final String SINK_TYPE_HBASE = "hbase";

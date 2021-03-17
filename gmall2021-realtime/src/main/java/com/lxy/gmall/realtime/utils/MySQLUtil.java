@@ -1,7 +1,8 @@
 package com.lxy.gmall.realtime.utils;
 
-import com.lxy.gmall.realtime.bean.TableProcess;
 import com.google.common.base.CaseFormat;
+import com.lxy.gmall.realtime.bean.TableProcess;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,14 +1,34 @@
 package com.lxy.gmall.realtime.app.dwd;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.lxy.gmall.realtime.utils.MyKafkaUtil;
-import com.sun.xml.internal.bind.v2.TODO;
+import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.functions.RichMapFunction;
+import org.apache.flink.api.common.state.ValueState;
+import org.apache.flink.api.common.state.ValueStateDescriptor;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.runtime.state.filesystem.FsStateBackend;
+import org.apache.flink.streaming.api.CheckpointingMode;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.ProcessFunction;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
+import org.apache.flink.util.Collector;
+import org.apache.flink.util.OutputTag;
 
 import java.text.SimpleDateFormat;
-import java.util.stream.Collector;
+import java.util.Date;
 
 /**
  * @author lxy
  * @date 2021/3/15
+ * 从Kafka中读取ods层用户行为日志数据
  */
 public class BaseLogApp {
     //定义用户行为主题信息
@@ -104,18 +124,18 @@ public class BaseLogApp {
                 }
             }
         );
-//打印测试
+        //打印测试
         midWithNewFlagDS.print();
 
         // TODO 3. 利用侧输出流实现数据拆分
-//定义启动和曝光数据的侧输出流标签
+        //定义启动和曝光数据的侧输出流标签
         OutputTag<String> startTag = new OutputTag<String>("start") {
         };
         OutputTag<String> displayTag = new OutputTag<String>("display") {
         };
 
-//日志页面日志、启动日志、曝光日志
-//将不同的日志输出到不同的流中 页面日志输出到主流,启动日志输出到启动侧输出流,曝光日志输出到曝光日志侧输出流
+        //日志页面日志、启动日志、曝光日志
+        //将不同的日志输出到不同的流中页面日志输出到主流,启动日志输出到启动侧输出流,曝光日志输出到曝光日志侧输出流
         SingleOutputStreamOperator<String> pageDStream = midWithNewFlagDS.process(
             new ProcessFunction<JSONObject, String>() {
                 @Override
@@ -150,11 +170,11 @@ public class BaseLogApp {
             }
         );
 
-//获取侧输出流
+        //获取侧输出流
         DataStream<String> startDStream = pageDStream.getSideOutput(startTag);
         DataStream<String> displayDStream = pageDStream.getSideOutput(displayTag);
 
-//打印测试
+        //打印测试
         pageDStream.print("page");
         startDStream.print("start");
         displayDStream.print("display");

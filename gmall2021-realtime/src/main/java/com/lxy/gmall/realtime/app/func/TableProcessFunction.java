@@ -1,9 +1,16 @@
 package com.lxy.gmall.realtime.app.func;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lxy.gmall.realtime.bean.TableProcess;
 import com.lxy.gmall.realtime.common.GmallConfig;
 import com.lxy.gmall.realtime.utils.MySQLUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.streaming.api.functions.ProcessFunction;
+import org.apache.flink.util.Collector;
+import org.apache.flink.util.OutputTag;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
