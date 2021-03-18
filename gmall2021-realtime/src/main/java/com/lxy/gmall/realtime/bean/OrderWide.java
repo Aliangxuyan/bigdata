@@ -1,5 +1,6 @@
 package com.lxy.gmall.realtime.bean;
 
+import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
  * @date 2021/3/17
  * 订单和订单明细关联宽表对应实体类
  */
+@Data
 public class OrderWide {
     Long detail_id;
     Long order_id;

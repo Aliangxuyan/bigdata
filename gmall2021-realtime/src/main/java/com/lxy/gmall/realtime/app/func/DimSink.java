@@ -2,6 +2,7 @@ package com.lxy.gmall.realtime.app.func;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lxy.gmall.realtime.common.GmallConfig;
+import com.lxy.gmall.realtime.utils.DimUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
@@ -34,7 +35,6 @@ public class DimSink extends RichSinkFunction<JSONObject> {
      */
     @Override
     public void invoke(JSONObject jsonObject, Context context) throws Exception {
-
         String tableName = jsonObject.getString("sink_table");
         JSONObject dataJsonObj = jsonObject.getJSONObject("data");
         if (dataJsonObj != null && dataJsonObj.size() > 0) {
@@ -49,6 +49,11 @@ public class DimSink extends RichSinkFunction<JSONObject> {
                 e.printStackTrace();
                 throw new RuntimeException("执行sql失败！");
             }
+        }
+        //如果维度数据发生变化，那么清空当前数据在Redis中的缓存
+        if(jsonObject.getString("type").equals("update")
+            ||jsonObject.getString("type").equals("delete")){
+            DimUtil.deleteCached(tableName,dataJsonObj.getString("id"));
         }
     }
 

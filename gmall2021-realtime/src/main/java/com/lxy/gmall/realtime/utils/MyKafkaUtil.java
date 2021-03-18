@@ -38,4 +38,14 @@ public class MyKafkaUtil {
         prop.setProperty(ProducerConfig.TRANSACTION_TIMEOUT_CONFIG, 1000 * 60 * 15 + "");
         return new FlinkKafkaProducer<>(DEFAULT_TOPIC, serializationSchema, prop, FlinkKafkaProducer.Semantic.EXACTLY_ONCE);
     }
+    //拼接Kafka相关属性到DDL
+    public static String getKafkaDDL(String topic,String groupId){
+        String ddl="'connector' = 'kafka', " +
+            " 'topic' = '"+topic+"',"   +
+            " 'properties.bootstrap.servers' = '"+ kafkaServer +"', " +
+            " 'properties.group.id' = '"+groupId+ "', " +
+            "  'format' = 'json', " +
+            "  'scan.startup.mode' = 'latest-offset'  ";
+        return  ddl;
+    }
 }

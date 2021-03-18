@@ -1,5 +1,9 @@
 package com.lxy.gmall.realtime.utils;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+
 /**
  * @author lxy
  * @date 2021/3/17
@@ -29,5 +33,7 @@ public class RedisUtil {
             return   jedisPool.getResource();
         }
     }
+
+
 }
-}
+
