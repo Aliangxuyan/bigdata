@@ -7,6 +7,9 @@ import org.apache.spark.sql.types._
 
 /**
   * 自定义聚合函数
+ * 弱类型，根据下标位置。容易出错，所以推荐使用
+ * org.apache.spark.sql.expressions.Aggregator.Aggregator[Long,Buff,Long]
+ *
   */
 class MyAverage extends UserDefinedAggregateFunction{
 
