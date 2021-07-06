@@ -22,6 +22,7 @@ object Kafka {
     val conf = new SparkConf().setAppName("kafka").setMaster("local[*]")
     val ssc = new StreamingContext(conf, Seconds(5))
 
+
     //创建连接Kafka的参数
     val brokerList = "master01:9092,slave01:9092,slave02:9092"
     val zookeeper = "master01:2181,slave01:2181,slave02:2181"
