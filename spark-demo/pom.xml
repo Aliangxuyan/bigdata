@@ -18,6 +18,7 @@
         <module>spark-core</module>
         <module>spark-sql</module>
         <module>spark-streaming</module>
+        <module>SparkStreaming3</module>
     </modules>
 
     <properties>

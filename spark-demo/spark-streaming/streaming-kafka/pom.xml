@@ -29,10 +29,21 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.spark</groupId>-->
+<!--            <artifactId>spark-streaming-kafka_2.11</artifactId>-->
+<!--            <version>1.6.3</version>-->
+<!--        </dependency>-->
+        <!--spark 3.0 kafka drictor 方式获取-->
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming-kafka_2.11</artifactId>
-            <version>1.6.3</version>
+            <artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.10.1</version>
         </dependency>
 
 
