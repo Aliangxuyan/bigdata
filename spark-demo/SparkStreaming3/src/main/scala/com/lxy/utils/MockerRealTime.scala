@@ -41,36 +41,37 @@ object MockerRealTime {
   }
 
 
-  def createKafkaProducer(broker: String): KafkaProducer[String, String] = {
-
-    // 创建配置对象
-    val prop = new Properties()
-    // 添加配置
-    prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, broker)
-    prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
-    prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
-
-    // 根据配置创建 Kafka 生产者
-    new KafkaProducer[String, String](prop)
-  }
-
-  def main(args: Array[String]): Unit = {
-
-    // 获取配置文件 config.properties 中的 Kafka 配置参数
-    val config: Properties = PropertiesUtil.load("config.properties")
-    val broker: String = config.getProperty("kafka.broker.list")
-    val topic = "test"
-
-    // 创建 Kafka 消费者
-    val kafkaProducer: KafkaProducer[String, String] = createKafkaProducer(broker)
-
-    while (true) {
-      // 随机产生实时数据并通过 Kafka 生产者发送到 Kafka 集群中
-      for (line <- generateMockData()) {
-        kafkaProducer.send(new ProducerRecord[String, String](topic, line)) println (line)
-
-      }
-      Thread.sleep(2000)
-    }
-  }
+//  def createKafkaProducer(broker: String): KafkaProducer[String, String] = {
+//
+//    // 创建配置对象
+//    val prop = new Properties()
+//    // 添加配置
+//    prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, broker)
+//    prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
+//    prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
+//
+//    // 根据配置创建 Kafka 生产者
+//    new KafkaProducer[String, String](prop)
+//  }
+//
+//  def main(args: Array[String]): Unit = {
+//
+//    // 获取配置文件 config.properties 中的 Kafka 配置参数
+//    val config: Properties = PropertiesUtil.load("config.properties")
+//    val broker: String = config.getProperty("kafka.broker.list")
+//    val topic = "test"
+//
+//    // 创建 Kafka 消费者
+//    val kafkaProducer: KafkaProducer[String, String] = createKafkaProducer(broker)
+//
+//    while (true) {
+//      // 随机产生实时数据并通过 Kafka 生产者发送到 Kafka 集群中
+//      for (line <- generateMockData()) {
+//        kafkaProducer.send(new ProducerRecord[String, String](topic, line))
+//        println (line)
+//
+//      }
+//      Thread.sleep(2000)
+//    }
+//  }
 }
