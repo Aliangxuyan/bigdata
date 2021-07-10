@@ -6,6 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ * 算子：repartition
  */
 object Spark11_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

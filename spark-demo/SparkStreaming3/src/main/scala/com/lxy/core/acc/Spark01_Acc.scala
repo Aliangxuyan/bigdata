@@ -1,8 +1,12 @@
 package com.lxy.core.acc
+
 import org.apache.spark.{SparkConf, SparkContext}
+
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *
  */
 object Spark01_Acc {
   def main(args: Array[String]): Unit = {
@@ -16,6 +20,12 @@ object Spark01_Acc {
     //val i: Int = rdd.reduce(_+_)
     //println(i)
     var sum = 0
+    //    rdd.collect().foreach(
+    //      num => {
+    //        sum = sum + num
+    //      }
+    //    )
+    //
     rdd.foreach(
       num => {
         sum += num

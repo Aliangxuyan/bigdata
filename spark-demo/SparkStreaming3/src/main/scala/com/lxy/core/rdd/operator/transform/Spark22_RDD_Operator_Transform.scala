@@ -5,6 +5,10 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       左连接和右连接：
+ *       leftOuterJoin
+ *       rightOuterJoin
  */
 object Spark22_RDD_Operator_Transform {
 

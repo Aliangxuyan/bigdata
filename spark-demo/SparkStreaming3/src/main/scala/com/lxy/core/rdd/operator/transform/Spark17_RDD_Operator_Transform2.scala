@@ -4,6 +4,11 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *
+ * aggregateByKey:分区内分区件计算规则可以一样，初始值默认是0 时和 reduceByKey 没有区别
+ *
+ * foldByKey: 简化aggregateByKey 分区内和分区间计算规则一致的情况
  */
 object Spark17_RDD_Operator_Transform2 {
   def main(args: Array[String]): Unit = {

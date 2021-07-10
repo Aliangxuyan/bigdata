@@ -5,6 +5,10 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *       save 算子：
+ *       saveAsTextFile
+ *       saveAsObjectFile
+ *       saveAsSequenceFile
  */
 object Spark05_RDD_Operator_Action {
   def main(args: Array[String]): Unit = {

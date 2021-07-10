@@ -5,6 +5,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ * 算子： mapPartitionsWithIndex
  */
 object Spark03_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {
@@ -12,7 +13,7 @@ object Spark03_RDD_Operator_Transform {
     val sparkConf = new SparkConf().setMaster("local[*]").setAppName("Operator")
     val sc = new SparkContext(sparkConf)
 
-    // TODO 算子 - mapPartitions
+    // TODO 算子 - mapPartitionsWithIndex 增加了分区号即分区索引，分区编号从0开始，获取第二个分区的数据
     val rdd = sc.makeRDD(List(1, 2, 3, 4), 2)
     // 【1，2】，【3，4】
     val mpiRDD = rdd.mapPartitionsWithIndex(

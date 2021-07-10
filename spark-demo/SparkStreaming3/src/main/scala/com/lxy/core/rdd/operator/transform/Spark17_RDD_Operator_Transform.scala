@@ -6,6 +6,12 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       reduceByKey:分区内和分区间必须操作一致
+ *       aggregateByKey：可以分区内和分区间不同的计算操作
+ *       eg:f分区内求最大值，分区间求和
+ *
+ *       场景：将数据根据不同的规则进行分区内计算和分区间计算
  */
 object Spark17_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

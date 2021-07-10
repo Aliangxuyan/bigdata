@@ -12,7 +12,7 @@ object Spark07_RDD_Operator_Action {
     val sparkConf = new SparkConf().setMaster("local[*]").setAppName("Operator")
     val sc = new SparkContext(sparkConf)
 
-    val rdd = sc.makeRDD(List[Int]())
+    val rdd = sc.makeRDD(List[Int](1,2))
 
     val user = new User()
 
@@ -21,11 +21,17 @@ object Spark07_RDD_Operator_Action {
 
     // RDD算子中传递的函数是会包含闭包操作，那么就会进行检测功能
     // 闭包检测
+    /**
+     *  源码：val cleanF = sc.clean(f) 有检查闭包的操作
+     *
+     */
     rdd.foreach(
       num => {
         println("age = " + (user.age + num))
+        user.age = (user.age + num)
       }
     )
+    println("age = " + (user.age ))
 
     sc.stop()
 
@@ -33,7 +39,7 @@ object Spark07_RDD_Operator_Action {
 
   //class User extends Serializable {
   // 样例类在编译时，会自动混入序列化特质（实现可序列化接口）
-  //case class User() {
+//  case class User() {
   class User {
     var age: Int = 30
   }

@@ -5,6 +5,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       将 List(List(1,2),3,List(4,5))进行扁平化操作
  */
 object Spark04_RDD_Operator_Transform2 {
   def main(args: Array[String]): Unit = {
@@ -17,6 +19,7 @@ object Spark04_RDD_Operator_Transform2 {
 
     val flatRDD = rdd.flatMap(
       data => {
+        //        模式匹配
         data match {
           case list: List[_] => list
           case dat => List(dat)

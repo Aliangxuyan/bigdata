@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       aggregateByKey实现求平均值
  */
 object Spark18_RDD_Operator_Transform3 {
   def main(args: Array[String]): Unit = {

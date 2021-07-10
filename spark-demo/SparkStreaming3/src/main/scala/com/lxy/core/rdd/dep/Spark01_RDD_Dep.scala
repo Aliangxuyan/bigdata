@@ -1,9 +1,13 @@
 package com.lxy.core.rdd.dep
+
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.rdd.RDD
+
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * 血缘关系 toDebugString
  */
 object Spark01_RDD_Dep {
   def main(args: Array[String]): Unit = {

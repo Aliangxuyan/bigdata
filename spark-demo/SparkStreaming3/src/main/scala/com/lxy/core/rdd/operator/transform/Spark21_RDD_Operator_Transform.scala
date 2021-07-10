@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * join：相当于sql 中的内连接
  */
 object Spark21_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

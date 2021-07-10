@@ -6,6 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ * 拉链算子：zip
  */
 object Spark13_RDD_Operator_Transform1 {
   def main(args: Array[String]): Unit = {

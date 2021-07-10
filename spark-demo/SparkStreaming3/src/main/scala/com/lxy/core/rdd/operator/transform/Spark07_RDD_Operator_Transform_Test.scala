@@ -5,6 +5,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * 从服务器日志数据 apache.log 中获取 2015 年 5 月 17 日的请求路径
  */
 object Spark07_RDD_Operator_Transform_Test {
   def main(args: Array[String]): Unit = {

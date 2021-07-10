@@ -5,6 +5,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *       countByValue：可以统计某个值出现的次数，非K-V 类型
+ *       countByKey：K-V 类型
  */
 object Spark04_RDD_Operator_Action {
   def main(args: Array[String]): Unit = {

@@ -5,6 +5,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * 每个分区内相同 key 的最大值然后分区间相加
  */
 object Spark17_RDD_Operator_Transform1 {
   def main(args: Array[String]): Unit = {
@@ -41,6 +43,7 @@ object Spark17_RDD_Operator_Transform1 {
       (x, y) => x + y
     ).collect.foreach(println)
 
+    // aggregateByKey 分区内分区件计算规则可以一样，初始值默认是0 时和 reduceByKey 没有区别
     rdd.aggregateByKey(0)(_ + _, _ + _).collect.foreach(println)
 
 

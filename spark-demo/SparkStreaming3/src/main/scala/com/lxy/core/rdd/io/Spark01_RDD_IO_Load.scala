@@ -5,6 +5,11 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       saveAsTextFile 和 saveAsObjectFile
+ *       objectFile
+ *
+ *
  */
 object Spark01_RDD_IO_Load {
   def main(args: Array[String]): Unit = {
@@ -21,5 +26,6 @@ object Spark01_RDD_IO_Load {
     println(rdd2.collect().mkString(","))
 
     sc.stop()
+
   }
 }

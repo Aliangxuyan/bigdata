@@ -5,6 +5,12 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       // 获取累加器的值
+ *       // 少加：转换算子中调用累加器，如果没有行动算子的话，那么不会执行   10
+ *       // 多加：转换算子中调用累加器，如果没有行动算子的话，那么不会执行   20
+ *       // 一般情况下，累加器会放置在行动算子进行操作
+ *
  */
 object Spark03_Acc {
   def main(args: Array[String]): Unit = {

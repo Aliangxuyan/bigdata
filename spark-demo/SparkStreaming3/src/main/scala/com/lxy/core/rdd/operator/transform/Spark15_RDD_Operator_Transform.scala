@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       算子：reduceByKey：分区内和分区间的计算规则是一样的，eg:分区内求和，分区间求和
  */
 object Spark15_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

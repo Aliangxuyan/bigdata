@@ -6,6 +6,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       双Value类型:
+ *       拉链：两个数据源分区数量必须相同
  */
 object Spark13_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

@@ -5,6 +5,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       foreach:在driver 和excutor 端内存数据的打印
+ *       collect() 是将数据采集到driver端
  */
 object Spark06_RDD_Operator_Action {
 

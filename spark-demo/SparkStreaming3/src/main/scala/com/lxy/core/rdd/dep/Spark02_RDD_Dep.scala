@@ -1,9 +1,18 @@
 package com.lxy.core.rdd.dep
+
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
+
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       血缘关系 toDebugString
+ *       相邻RDD 的依赖关系：
+ *       lines.dependencies：打印 宽依赖 ShuffleDependency & 窄依赖 OneToOneDependency
+ *
+ *       OneToOneDependency[T](rdd: RDD[T]) extends NarrowDependency
+ *
  */
 object Spark02_RDD_Dep {
   def main(args: Array[String]): Unit = {

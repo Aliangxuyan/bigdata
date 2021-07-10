@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * sortBy 中间存在 shuffle 的过程
  */
 object Spark12_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

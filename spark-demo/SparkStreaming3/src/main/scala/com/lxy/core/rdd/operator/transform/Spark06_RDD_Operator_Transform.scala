@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * groupBy:注意：一个组的数据在一个分区中，但是并不是说一个分区中只有一个组
  */
 object Spark06_RDD_Operator_Transform {
 
@@ -22,7 +24,6 @@ object Spark06_RDD_Operator_Transform {
     def groupFunction(num: Int) = {
       num % 2
     }
-
     val groupRDD: RDD[(Int, Iterable[Int])] = rdd.groupBy(groupFunction)
 
     groupRDD.collect().foreach(println)

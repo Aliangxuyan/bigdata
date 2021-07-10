@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * coalesce：根据数据量缩减分区，用于大数据集过滤后，提高小数据集的执行效率
  */
 object Spark10_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

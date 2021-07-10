@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * 统计出每一个省份每个广告被点击数量排行的 Top3
  */
 object Spark24_RDD_Req {
   def main(args: Array[String]): Unit = {

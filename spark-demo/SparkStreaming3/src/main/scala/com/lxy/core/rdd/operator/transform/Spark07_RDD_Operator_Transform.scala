@@ -6,6 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ * filter：计算规则是针对 分区的，可能会出现数据不均衡，TODO 数据倾斜，
  */
 object Spark07_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

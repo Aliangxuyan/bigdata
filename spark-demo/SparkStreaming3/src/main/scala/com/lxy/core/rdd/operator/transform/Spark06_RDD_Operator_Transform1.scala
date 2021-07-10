@@ -5,6 +5,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ * groupBy：
+ * 将 List("Hello", "hive", "hbase", "Hadoop")根据单词首写字母进行分组
  */
 object Spark06_RDD_Operator_Transform1 {
   def main(args: Array[String]): Unit = {

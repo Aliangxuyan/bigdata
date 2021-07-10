@@ -5,6 +5,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       reduceByKey、foldByKey、aggregateByKey、combineByKey 的区别？
+ *       代码底层都是：combineByKeyWithClassTag
  */
 object Spark20_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {

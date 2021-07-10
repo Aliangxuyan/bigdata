@@ -6,6 +6,8 @@ import org.apache.spark.{Partitioner, SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       自定义分区器:Partitioner
  */
 object Spark01_RDD_Part {
   def main(args: Array[String]): Unit = {
@@ -36,13 +38,14 @@ object Spark01_RDD_Part {
 
     // 根据数据的key值返回数据所在的分区索引（从0开始）
     override def getPartition(key: Any): Int = {
+
+      // if 也可以，但是scala 中有模式匹配方式实现
       key match {
         case "nba" => 0
         case "wnba" => 1
         case _ => 2
       }
     }
-
   }
 
 }

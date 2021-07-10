@@ -8,6 +8,12 @@ import scala.collection.mutable
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       累加器：分布式共享只写变量
+ *       累加器的使用场景：
+ *       1）事件数据的累加
+ *       2）需要suffer的东西用累加器实现 如：wordcount
+ *       自定义累加器：
  */
 object Spark04_Acc_WordCount {
   def main(args: Array[String]): Unit = {
@@ -16,6 +22,9 @@ object Spark04_Acc_WordCount {
     val sc = new SparkContext(sparConf)
 
     val rdd = sc.makeRDD(List("hello", "spark", "hello"))
+
+    // 之前的实现方式，但是 reduceByKey 存在suffle 操作
+    //    rdd.map((_,1)).reduceByKey(_+_)
 
     // 累加器 : WordCount
     // 创建累加器对象
@@ -46,6 +55,7 @@ object Spark04_Acc_WordCount {
 
     2. 重写方法（6）
    */
+
   class MyAccumulator extends AccumulatorV2[String, mutable.Map[String, Long]] {
 
     private var wcMap = mutable.Map[String, Long]()
@@ -59,6 +69,7 @@ object Spark04_Acc_WordCount {
       new MyAccumulator()
     }
 
+    // 重置
     override def reset(): Unit = {
       wcMap.clear()
     }

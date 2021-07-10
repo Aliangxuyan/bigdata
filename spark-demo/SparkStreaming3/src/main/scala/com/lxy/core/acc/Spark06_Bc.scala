@@ -8,6 +8,11 @@ import scala.collection.mutable
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       spark 的广播变量：broadcast
+ *       * Excutor 其实就是一个JVM ，所以在启动的时候，会自动分配内存，完全可以将任务重的闭包数据放到EXcutor 的内存中
+ *       * 达到共享的目的；
+ *       spark 中的广播变量可以实现将闭包数据放到 Excutor的内存中了，不能够进行更改（分布式共享的只读变量）
  */
 object Spark06_Bc {
   def main(args: Array[String]): Unit = {

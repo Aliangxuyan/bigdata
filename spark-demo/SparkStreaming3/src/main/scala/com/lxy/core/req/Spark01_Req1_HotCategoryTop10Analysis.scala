@@ -1,10 +1,14 @@
 package com.lxy.core.req
+
 import org.apache.spark.rdd.RDD
 
 import org.apache.spark.{SparkConf, SparkContext}
+
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       Spark 案例实操
  */
 object Spark01_Req1_HotCategoryTop10Analysis {
   def main(args: Array[String]): Unit = {

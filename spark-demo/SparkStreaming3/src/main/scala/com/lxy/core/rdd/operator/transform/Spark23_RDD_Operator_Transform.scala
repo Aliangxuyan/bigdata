@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * cogroup：分组连接
  */
 object Spark23_RDD_Operator_Transform {
   def main(args: Array[String]): Unit = {
