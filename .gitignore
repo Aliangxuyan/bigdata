@@ -20,6 +20,8 @@
 *.rar
 
 target/
+output*/
+cp/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -35,6 +37,7 @@ target/
 *.iws
 *.iml
 *.ipr
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
