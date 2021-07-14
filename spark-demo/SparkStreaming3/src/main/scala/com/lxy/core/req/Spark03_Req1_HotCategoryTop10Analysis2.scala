@@ -6,6 +6,12 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       6.1Top10 热门品类
+ *       解决问题：reduceByKey（） 算子使用太多，存在大量的 shuffle
+ *       方案：直接在map 阶段将数据进行统一化，后面直接一次性进行 reduceByKey()
+ *
+ *       即使如此，还是使用到了reduceByKey（） 算子，如何不实用 shuffle 操作实现呢？
  */
 object Spark03_Req1_HotCategoryTop10Analysis2 {
   def main(args: Array[String]): Unit = {

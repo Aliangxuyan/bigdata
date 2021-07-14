@@ -1,6 +1,7 @@
 package com.lxy.core.framework.dao
 
 import com.lxy.core.framework.common.TDao
+import com.lxy.core.framework.util.EnvUtil
 
 /**
  * @author lxy
@@ -9,5 +10,7 @@ import com.lxy.core.framework.common.TDao
  *       持久层
  */
 class WordCountDao extends TDao {
-
+// def readFile(path:String) = {
+//   EnvUtil.take().textFile(path)
+// }
 }

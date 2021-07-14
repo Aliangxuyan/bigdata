@@ -12,6 +12,7 @@ trait TApplication {
     EnvUtil.put(sc)
 
     try {
+      // scala 中可以传一段代码的逻辑
       op
     } catch {
       case ex => println(ex.getMessage)

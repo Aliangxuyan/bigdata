@@ -6,6 +6,11 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       6.2需求 2：Top10 热门品类中每个品类的 Top10 活跃 Session 统计
+ *
+ *       直接在需求1 的基础上进行数据处理
+ *
  */
 object Spark05_Req2_HotCategoryTop10SessionAnalysis {
   def main(args: Array[String]): Unit = {

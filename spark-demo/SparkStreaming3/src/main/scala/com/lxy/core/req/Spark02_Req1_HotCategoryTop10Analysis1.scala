@@ -6,6 +6,16 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *       6.1Top10 热门品类
+ *       第二种方式：
+ *       解决存在问题：
+ *       1）actionRDD 重复使用
+ *       actionRDD.cache()
+ *       2）coGroup 使用可能存在shuffle ：转化结构，两两聚合
+ *       rdd1.union(rdd2).union(rdd3)
+ *
+ *       后续还存在的问题：reduceByKey（） 算子使用太多，存在大量的 shuffle，而且是针对不同的算子，待优化。。。。。
+ *
  */
 object Spark02_Req1_HotCategoryTop10Analysis1 {
   def main(args: Array[String]): Unit = {
@@ -19,6 +29,7 @@ object Spark02_Req1_HotCategoryTop10Analysis1 {
 
     // 1. 读取原始日志数据
     val actionRDD = sc.textFile("datas/user_visit_action.txt")
+
     actionRDD.cache()
 
     // 2. 统计品类的点击数量：（品类ID，点击数量）

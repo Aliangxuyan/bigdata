@@ -9,6 +9,22 @@ import org.apache.spark.{SparkConf, SparkContext}
  * @date 2021/7/7
  *
  *       Spark 案例实操
+ *       6.1Top10 热门品类
+ *
+ *       第一种方式：
+ *
+ *       存在问题：
+ *       1）actionRDD 重复使用
+ *       2）coGroup 使用可能存在shuffle（因为是不同的数据源，分区数不一致的情况下可能存在shuffle）
+ *       if (rdd.partitioner == Some(part)) {
+ *       logDebug("Adding one-to-one dependency with " + rdd)
+ *       new OneToOneDependency(rdd)
+ *       } else {
+ *       logDebug("Adding shuffle dependency with " + rdd)
+ *       new ShuffleDependency[K, Any, CoGroupCombiner](
+ *       rdd.asInstanceOf[RDD[_ <: Product2[K, _]]], part, serializer)
+ *       }
+ *       }
  */
 object Spark01_Req1_HotCategoryTop10Analysis {
   def main(args: Array[String]): Unit = {
@@ -77,8 +93,19 @@ object Spark01_Req1_HotCategoryTop10Analysis {
     //    点击数量排序，下单数量排序，支付数量排序
     //    元组排序：先比较第一个，再比较第二个，再比较第三个，依此类推
     //    ( 品类ID, ( 点击数量, 下单数量, 支付数量 ) )
+    // 将不同的 rdd 连接到一起，
+    //
+    /**
+     * 思考：
+     * 1) join : 点击的数据有，可能没有下单,所以pass
+     * 2）zip: 和连接数量和位置有关系，所以pass
+     * 3) leftouterjoin: 不能保证左边的数据一定有，没法确定哪个是左右
+     * 4）cogroup :  即使不存在也能关联：cogroup =  connect + group
+     *
+     */
     //
     //  cogroup = connect + group
+    //  ( 品类ID, ( 点击数量, 下单数量, 支付数量 ) )
     val cogroupRDD: RDD[(String, (Iterable[Int], Iterable[Int], Iterable[Int]))] =
     clickCountRDD.cogroup(orderCountRDD, payCountRDD)
     val analysisRDD = cogroupRDD.mapValues {

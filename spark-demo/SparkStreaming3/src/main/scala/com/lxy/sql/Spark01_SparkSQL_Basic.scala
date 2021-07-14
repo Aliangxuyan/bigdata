@@ -58,7 +58,7 @@ object Spark01_SparkSQL_Basic {
       }
     }.toDS()
     val userRDD: RDD[User] = ds1.rdd
-
+    ds1.show()
 
     // TODO 关闭环境
     spark.close()

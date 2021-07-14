@@ -9,6 +9,11 @@ import scala.collection.mutable
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ *       6.1Top10 热门品类
+ *       第四种方式：
+ *       解决问题：不实用reduceBykey ，避免shuffle 操作
+ *       解决方案：自定义累加器
  */
 object Spark04_Req1_HotCategoryTop10Analysis3 {
   def main(args: Array[String]): Unit = {

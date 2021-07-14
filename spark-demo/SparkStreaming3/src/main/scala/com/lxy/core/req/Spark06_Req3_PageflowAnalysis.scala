@@ -6,6 +6,8 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
  * @author lxy
  * @date 2021/7/7
+ *
+ * 6.3需求 3：页面单跳转换率统计
  */
 object Spark06_Req3_PageflowAnalysis {
   def main(args: Array[String]): Unit = {
