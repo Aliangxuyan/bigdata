@@ -6,7 +6,11 @@
 
     <groupId>com.lxy.bigdata</groupId>
     <artifactId>FlinkTutorial</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>FlinkTutial101</module>
+    </modules>
 
     <properties>
         <log4j.version>1.2.17</log4j.version>
