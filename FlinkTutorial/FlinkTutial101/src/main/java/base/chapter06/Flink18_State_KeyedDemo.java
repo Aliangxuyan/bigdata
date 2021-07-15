@@ -1,6 +1,6 @@
 package base.chapter06;
 
-import com.atguigu.bean.WaterSensor;
+import base.bean.WaterSensor;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.state.*;
 import org.apache.flink.configuration.Configuration;
@@ -12,11 +12,8 @@ import org.apache.flink.streaming.api.functions.AssignerWithPunctuatedWatermarks
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction;
 import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.util.Collector;
-import org.apache.flink.util.OutputTag;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**

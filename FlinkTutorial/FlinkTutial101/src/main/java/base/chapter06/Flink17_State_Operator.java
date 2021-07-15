@@ -1,6 +1,6 @@
 package base.chapter06;
 
-import com.atguigu.bean.WaterSensor;
+import base.bean.WaterSensor;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.checkpoint.ListCheckpointed;
