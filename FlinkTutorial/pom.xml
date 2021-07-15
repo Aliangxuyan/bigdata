@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>FlinkTutial101</module>
+        <module>Flink12.1</module>
     </modules>
 
     <properties>
