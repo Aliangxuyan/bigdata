@@ -1,4 +1,4 @@
-package com.lxy.gmall.realtime;
+package com.lxy.gmall.realtime.akka;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;

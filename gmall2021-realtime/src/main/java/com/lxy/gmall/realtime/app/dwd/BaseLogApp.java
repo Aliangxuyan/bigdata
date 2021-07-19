@@ -49,6 +49,7 @@ public class BaseLogApp {
         //Checkpoint必须在一分钟内完成，否则就会被抛弃
         env.getCheckpointConfig().setCheckpointTimeout(60000);
         env.setStateBackend(new FsStateBackend("hdfs://hadoop202:8020/gmall/flink/checkpoint"));
+        // 设置hadoop 操作hdfs 时的用户，atguigu 在hadoop 上面目录中已经授权
         System.setProperty("HADOOP_USER_NAME", "atguigu");
 
         //指定消费者配置信息
@@ -128,7 +129,7 @@ public class BaseLogApp {
         midWithNewFlagDS.print();
 
         // TODO 3. 利用侧输出流实现数据拆分
-        //定义启动和曝光数据的侧输出流标签
+        //定义启动和曝光数据的侧输出流标签,注意后面需要中括号
         OutputTag<String> startTag = new OutputTag<String>("start") {
         };
         OutputTag<String> displayTag = new OutputTag<String>("display") {
