@@ -10,8 +10,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.lxy.bigdata</groupId>
-    <artifactId>yarn</artifactId>
+    <artifactId>yarn-demo</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>yarn3.1.3</module>
+    </modules>
 
 
 </project>

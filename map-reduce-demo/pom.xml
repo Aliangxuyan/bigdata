@@ -11,6 +11,7 @@
 
     <groupId>com.lxy.bigdata</groupId>
     <artifactId>map-reduce-demo</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <!--在集群上面测试-->
@@ -48,6 +49,9 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>map-resuce3.1.3</module>
+    </modules>
     <dependencies>
 
     </dependencies>
