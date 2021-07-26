@@ -100,7 +100,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.3</version>
+            <version>1.9.4</version>
         </dependency>
         <!--Guava工程包含了若干被Google的Java项目广泛依赖的核心库,方便开发-->
         <dependency>
